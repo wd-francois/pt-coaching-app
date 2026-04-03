@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fusion SC - Personal Training Studio, Mobile Personal Trainer, Online Personal Training</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<header class="bg-black">
+    <div class="container mx-auto flex flex-wrap p-3 flex-col md:flex-row items-center">
+        <a class="flex title-font font-medium items-center m-2 md:mb-0" href="index.html">
+            <img src="assets/img/fusionlogo.png" alt="Fusion Logo">
+        </a>
+        <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center mt-2">
+            <a class="text-white mr-5 cursor-pointer border-b border-transparent hover:border-yellow-300 font-bold" href="index.html">Home</a>
+            <a class="text-white mr-5 cursor-pointer border-b border-transparent hover:border-yellow-300 font-bold" href="services.html">Services</a>
+            <a class="text-white mr-5 cursor-pointer border-b border-transparent hover:border-yellow-300 font-bold" href="contact.html">Contact</a>
+        </nav>
+    </div>  
+</header>
+
+<body class="bg-gray-50">
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-lg shadow-xl">
+            <div class="flex items-center space-x-3">
+                <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+                <span class="text-gray-700">Submitting your form...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-lg shadow-xl max-w-md mx-4">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+                    <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Form Submitted Successfully!</h3>
+                <p class="text-sm text-gray-500 mb-4">Thank you for completing the questionnaire. We'll be in touch soon.</p>
+                <button onclick="closeSuccessMessage()" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Message -->
+    <div id="errorMessage" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-lg shadow-xl max-w-md mx-4">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
+                    <svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Submission Failed</h3>
+                <p class="text-sm text-gray-500 mb-4" id="errorText">There was an error submitting your form. Please try again.</p>
+                <button onclick="closeErrorMessage()" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Form Container -->
+    <div id="formContainer" class="min-h-screen py-6 sm:py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-white rounded-lg shadow-xl overflow-hidden">
+                <div class="px-4 sm:px-6 py-6 sm:py-8">
+                    <div class="text-center mb-6 sm:mb-8">
+                        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">Exercise Pre-Screening Questionnaire</h1>
+                        <p class="mt-2 sm:mt-3 text-sm sm:text-base text-gray-600">Please complete this form to help us understand your fitness needs and medical history</p>
+                    </div>
+
+                    <form id="questionnaireForm" class="space-y-6 sm:space-y-8">
+                        <!-- Disclaimer -->
+                        <div class="bg-red-50 border-l-4 border-red-500 p-4 sm:p-6 mb-6 sm:mb-8 rounded-lg">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-5 w-5 sm:h-6 sm:w-6 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div class="ml-3 sm:ml-4">
+                                    <h3 class="text-base sm:text-lg font-semibold text-red-800 mb-1 sm:mb-2">Important Medical Disclaimer</h3>
+                                    <div class="text-sm sm:text-base text-red-700">
+                                        <p class="mb-2">This questionnaire is designed to help us understand your medical history and fitness needs. It is not a substitute for professional medical advice.</p>
+                                        <p class="mb-2">Please disclose ALL existing medical conditions to ensure your safety during physical activity.</p>
+                                        <p class="font-medium">If you have any concerns about your health or fitness, please consult with your healthcare provider before starting any exercise program.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Personal Information Section -->
+                        <div class="space-y-4 sm:space-y-6">
+                            <h2 class="text-lg sm:text-xl font-bold text-gray-900 border-b-2 border-blue-500 pb-2">Personal Information</h2>
+                            <div class="grid grid-cols-1 gap-y-4 sm:gap-y-6 gap-x-4 sm:grid-cols-6">
+                                <div class="sm:col-span-3">
+                                    <label for="first-name" class="block text-sm font-medium text-gray-700 mb-1">First name</label>
+                                    <div class="mt-1">
+                                        <input type="text" name="first-name" id="first-name" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm sm:text-base h-10 px-4 placeholder-gray-400" placeholder="Enter your first name">
+                                    </div>
+                                </div>
+
+                                <div class="sm:col-span-3">
+                                    <label for="last-name" class="block text-sm font-medium text-gray-700 mb-1">Last name</label>
+                                    <div class="mt-1">
+                                        <input type="text" name="last-name" id="last-name" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm sm:text-base h-10 px-4 placeholder-gray-400" placeholder="Enter your last name">
+                                    </div>
+                                </div>
+
+                                <div class="sm:col-span-3">
+                                    <label for="dob" class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+                                    <div class="mt-1">
+                                        <input type="date" name="date-of-birth" id="dob" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm sm:text-base h-10 px-4 placeholder-gray-400">
+                                    </div>
+                                </div>
+
+                                <div class="sm:col-span-3">
+                                    <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+                                    <div class="mt-1">
+                                        <select id="gender" name="gender" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm sm:text-base h-10 px-4 placeholder-gray-400">
+                                            <option value="" disabled selected>Select your gender</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Other">Other</option>
+                                            <option value="Prefer not to say">Prefer not to say</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-span-full">
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email address</label>
+                                    <div class="mt-1">
+                                        <input type="email" name="email" id="email" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm sm:text-base h-10 px-4 placeholder-gray-400" placeholder="Enter your email address">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Medical Conditions Section -->
+                        <div class="space-y-4 sm:space-y-6">
+                            <h2 class="text-lg sm:text-xl font-bold text-gray-900 border-b-2 border-blue-500 pb-2">Medical Conditions</h2>
+                            <p class="text-sm sm:text-base text-gray-500">Please check all that apply:</p>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 sm:gap-y-4">
+                                <div class="relative flex items-start">
+                                    <div class="flex h-6 items-center">
+                                        <input id="heart-condition" name="heart-condition" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    </div>
+                                    <div class="ml-3 text-sm sm:text-base">
+                                        <label for="heart-condition" class="font-medium text-gray-700">Heart Condition</label>
+                                    </div>
+                                </div>
+
+                                <div class="relative flex items-start">
+                                    <div class="flex h-6 items-center">
+                                        <input id="chest-discomfort" name="chest-discomfort" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    </div>
+                                    <div class="ml-3 text-sm sm:text-base">
+                                        <label for="chest-discomfort" class="font-medium text-gray-700">Chest Discomfort</label>
+                                    </div>
+                                </div>
+
+                                <div class="relative flex items-start">
+                                    <div class="flex h-6 items-center">
+                                        <input id="asthma" name="asthma" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    </div>
+                                    <div class="ml-3 text-sm sm:text-base">
+                                        <label for="asthma" class="font-medium text-gray-700">Asthma</label>
+                                    </div>
+                                </div>
+
+                                <div class="relative flex items-start">
+                                    <div class="flex h-6 items-center">
+                                        <input id="diabetic" name="diabetic" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    </div>
+                                    <div class="ml-3 text-sm sm:text-base">
+                                        <label for="diabetic" class="font-medium text-gray-700">Diabetes</label>
+                                    </div>
+                                </div>
+
+                                <div class="relative flex items-start">
+                                    <div class="flex h-6 items-center">
+                                        <input id="dizziness" name="dizziness" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    </div>
+                                    <div class="ml-3 text-sm sm:text-base">
+                                        <label for="dizziness" class="font-medium text-gray-700">Dizziness/Fainting</label>
+                                    </div>
+                                </div>
+
+                                <div class="relative flex items-start">
+                                    <div class="flex h-6 items-center">
+                                        <input id="pregnant" name="pregnant" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    </div>
+                                    <div class="ml-3 text-sm sm:text-base">
+                                        <label for="pregnant" class="font-medium text-gray-700">Pregnant</label>
+                                    </div>
+                                </div>
+
+                                <div class="relative flex items-start">
+                                    <div class="flex h-6 items-center">
+                                        <input id="epilepsy" name="epilepsy" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    </div>
+                                    <div class="ml-3 text-sm sm:text-base">
+                                        <label for="epilepsy" class="font-medium text-gray-700">Epilepsy</label>
+                                    </div>
+                                </div>
+
+                                <div class="relative flex items-start">
+                                    <div class="flex h-6 items-center">
+                                        <input id="medication" name="medication" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    </div>
+                                    <div class="ml-3 text-sm sm:text-base">
+                                        <label for="medication" class="font-medium text-gray-700">Prescribed Medication</label>
+                                    </div>
+                                </div>
+
+                                <div class="relative flex items-start">
+                                    <div class="flex h-6 items-center">
+                                        <input id="smoke" name="smoke" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    </div>
+                                    <div class="ml-3 text-sm sm:text-base">
+                                        <label for="smoke" class="font-medium text-gray-700">Do you smoke?</label>
+                                    </div>
+                                </div>
+
+                                <div class="relative flex items-start">
+                                    <div class="flex h-6 items-center">
+                                        <input id="injury" name="injury" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    </div>
+                                    <div class="ml-3 text-sm sm:text-base">
+                                        <label for="injury" class="font-medium text-gray-700">Injury or Pain</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 sm:mt-6">
+                                <label for="medical-details" class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Additional Medical Information</label>
+                                <div class="mt-1">
+                                    <textarea id="medical-details" name="medical-details" rows="3" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm sm:text-base px-4 py-2 placeholder-gray-400" placeholder="Please provide any additional medical information or details about the conditions checked above"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fitness Information Section -->
+                        <div class="space-y-4 sm:space-y-6">
+                            <h2 class="text-lg sm:text-xl font-bold text-gray-900 border-b-2 border-blue-500 pb-2">Fitness Information</h2>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="fitness-level" class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Current Fitness Level (1-10)</label>
+                                    <div class="mt-1">
+                                        <input type="number" id="fitness-level" name="fitness-level" min="1" max="10" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm sm:text-base h-10 px-4 placeholder-gray-400" placeholder="Enter a number between 1 and 10">
+                                    </div>
+                                    <p class="mt-1 text-sm sm:text-base text-gray-500">1 being very sedentary, 10 being extremely active</p>
+                                </div>
+
+                                <div>
+                                    <label for="current-activities" class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Current Physical Activities</label>
+                                    <div class="mt-1">
+                                        <textarea id="current-activities" name="current-activities" rows="2" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm sm:text-base px-4 py-2 placeholder-gray-400" placeholder="What physical activities or sports do you currently engage in?"></textarea>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="exercise-history" class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Exercise History</label>
+                                    <div class="mt-1">
+                                        <textarea id="exercise-history" name="exercise-history" rows="2" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm sm:text-base px-4 py-2 placeholder-gray-400" placeholder="Describe your previous exercise experience"></textarea>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="trainer-experience" class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Previous Trainer Experience</label>
+                                    <div class="mt-1">
+                                        <textarea id="trainer-experience" name="trainer-experience" rows="2" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm sm:text-base px-4 py-2 placeholder-gray-400" placeholder="Have you worked with a personal trainer before? If yes, please describe"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Goals Section -->
+                        <div class="space-y-4 sm:space-y-6">
+                            <h2 class="text-lg sm:text-xl font-bold text-gray-900 border-b-2 border-blue-500 pb-2">Fitness Goals</h2>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="goals" class="block text-sm sm:text-base font-medium text-gray-700 mb-1">What are your fitness goals?</label>
+                                    <div class="mt-1">
+                                        <textarea id="goals" name="goals" rows="3" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm sm:text-base px-4 py-2 placeholder-gray-400" placeholder="Describe your fitness goals and what you hope to achieve"></textarea>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="timeframe" class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Goal Timeframe</label>
+                                    <div class="mt-1">
+                                        <input type="text" id="timeframe" name="timeframe" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm sm:text-base h-10 px-4 placeholder-gray-400" placeholder="When would you like to achieve these goals?">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="importance" class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Goal Importance (1-10)</label>
+                                    <div class="mt-1">
+                                        <input type="number" id="importance" name="importance" min="1" max="10" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm sm:text-base h-10 px-4 placeholder-gray-400" placeholder="How important are these goals to you?">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Agreement Section -->
+                        <div class="space-y-4 sm:space-y-6">
+                            <h2 class="text-lg sm:text-xl font-bold text-gray-900 border-b-2 border-blue-500 pb-2">Agreement</h2>
+                            <div class="bg-gray-50 p-4 rounded-md">
+                                <p class="text-sm sm:text-base text-gray-600">
+                                    I confirm that all information provided is accurate to the best of my knowledge. I understand that I should inform my trainer of any changes to my medical condition and complete a new questionnaire if necessary. I acknowledge that participating in physical activity carries inherent risks, and I accept responsibility for these risks. I understand that Fusion Strength & Conditioning will exercise due care at all times.
+                                </p>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="agreement" name="agreement" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" required>
+                                <label for="agreement" class="ml-2 block text-sm sm:text-base text-gray-700">
+                                    I agree to the terms above
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 sm:pt-5">
+                            <div class="flex justify-end">
+                                <button type="submit" class="inline-flex justify-center py-2 sm:py-3 px-4 sm:px-6 border border-transparent shadow-sm text-sm sm:text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                    Submit Questionnaire
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Supabase
+        // Replace these with your actual Supabase project details
+        // 1. Go to https://app.supabase.com
+        // 2. Select your project → Settings → API
+        // 3. Copy your Project URL and anon/public key
+        const SUPABASE_URL = 'https://gkskrzhfnsohtsjrnyxd.supabase.co'; // Your actual Supabase URL
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdrc2tyemhmbnNvaHRzanJueXhkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5Nzg0MTQsImV4cCI6MjA3MjU1NDQxNH0.gzaDPeFzIBu8H7b7-DRcCjn-wyk5nctHsS-sfVYkxaY'; // Your actual anon key
+        
+        let supabaseClient;
+        
+        // Initialize Supabase
+        function initSupabase() {
+            console.log('Attempting to initialize Supabase...');
+            console.log('window.supabase available:', !!window.supabase);
+            
+            if (window.supabase) {
+                try {
+                    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                    console.log('Supabase client created successfully');
+                    return true;
+                } catch (error) {
+                    console.error('Error creating Supabase client:', error);
+                    return false;
+                }
+            }
+            console.log('Supabase not available yet');
+            return false;
+        }
+
+        // Google Apps Script Configuration
+        // TODO: Replace with your Google Apps Script Web App URL
+        // 1. Go to https://script.google.com/
+        // 2. Create a new project
+        // 3. Deploy as web app
+        // 4. Copy the web app URL
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec'; // Replace with your Google Apps Script Web App URL
+        const YOUR_EMAIL = 'your-email@gmail.com'; // Replace with your Gmail address
+
+        // Email notification function using Google Apps Script
+        async function sendEmailNotification(clientData) {
+            try {
+                // Check if Google Script is configured
+                if (GOOGLE_SCRIPT_URL.includes('YOUR_SCRIPT_ID_HERE')) {
+                    console.log('Google Apps Script not configured - skipping email notification');
+                    return;
+                }
+
+                // Prepare email data
+                const emailData = {
+                    to_email: YOUR_EMAIL,
+                    client_name: `${clientData.first_name} ${clientData.last_name}`,
+                    client_email: clientData.email,
+                    fitness_level: clientData.fitness_level || 'Not specified',
+                    goals: clientData.goals || 'Not specified',
+                    medical_conditions: Object.entries(clientData.medical_conditions || {})
+                        .filter(([key, value]) => value)
+                        .map(([key]) => key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()))
+                        .join(', ') || 'None',
+                    medical_details: clientData.medical_details || 'None',
+                    submission_date: new Date().toLocaleDateString(),
+                    submission_time: new Date().toLocaleTimeString(),
+                    current_activities: clientData.current_activities || 'Not specified',
+                    exercise_history: clientData.exercise_history || 'Not specified',
+                    trainer_experience: clientData.trainer_experience || 'Not specified',
+                    timeframe: clientData.timeframe || 'Not specified',
+                    importance: clientData.importance || 'Not specified'
+                };
+
+                // Send email via Google Apps Script
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Important for Google Apps Script
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(emailData)
+                });
+
+                console.log('Email notification sent successfully');
+            } catch (error) {
+                console.error('Error sending email notification:', error);
+                // Don't throw error - form submission should still succeed
+            }
+        }
+
+        // Form submission handler
+        document.getElementById('questionnaireForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Show loading overlay
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+            
+            try {
+                // Initialize Supabase if not already done
+                if (!supabaseClient) {
+                    if (!initSupabase()) {
+                        // Wait a bit and try again
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                        if (!initSupabase()) {
+                            throw new Error('Supabase not loaded yet. Please refresh the page and try again.');
+                        }
+                    }
+                }
+                
+                // Collect form data
+                const formData = new FormData(e.target);
+                
+                // Prepare data for insertion
+                const submissionData = {
+                    // Personal Information
+                    first_name: formData.get('first-name'),
+                    last_name: formData.get('last-name'),
+                    date_of_birth: formData.get('date-of-birth'),
+                    gender: formData.get('gender'),
+                    email: formData.get('email'),
+                    
+                    // Medical Conditions (as JSON)
+                    medical_conditions: {
+                        heart_condition: formData.has('heart-condition'),
+                        chest_discomfort: formData.has('chest-discomfort'),
+                        asthma: formData.has('asthma'),
+                        diabetic: formData.has('diabetic'),
+                        dizziness: formData.has('dizziness'),
+                        pregnant: formData.has('pregnant'),
+                        epilepsy: formData.has('epilepsy'),
+                        medication: formData.has('medication'),
+                        smoke: formData.has('smoke'),
+                        injury: formData.has('injury')
+                    },
+                    medical_details: formData.get('medical-details') || '',
+                    
+                    // Fitness Information
+                    fitness_level: parseInt(formData.get('fitness-level')) || null,
+                    current_activities: formData.get('current-activities') || '',
+                    exercise_history: formData.get('exercise-history') || '',
+                    trainer_experience: formData.get('trainer-experience') || '',
+                    
+                    // Goals
+                    goals: formData.get('goals') || '',
+                    timeframe: formData.get('timeframe') || '',
+                    importance: parseInt(formData.get('importance')) || null,
+                    
+                    // Agreement
+                    agreement_accepted: formData.has('agreement'),
+                    
+                    // Metadata
+                    submitted_at: new Date().toISOString()
+                };
+                
+                // Insert data into Supabase
+                if (!supabaseClient) {
+                    throw new Error('Supabase client not initialized. Please refresh the page and try again.');
+                }
+                
+                const { data, error } = await supabaseClient
+                    .from('client_questionnaires')
+                    .insert([submissionData]);
+                
+                if (error) {
+                    throw error;
+                }
+                
+                // Send email notification
+                await sendEmailNotification(submissionData);
+                
+                // Hide loading and show success
+                document.getElementById('loadingOverlay').classList.add('hidden');
+                document.getElementById('successMessage').classList.remove('hidden');
+                
+                // Reset form
+                e.target.reset();
+                
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                
+                // Hide loading and show error
+                document.getElementById('loadingOverlay').classList.add('hidden');
+                document.getElementById('errorText').textContent = error.message || 'There was an error submitting your form. Please try again.';
+                document.getElementById('errorMessage').classList.remove('hidden');
+            }
+        });
+
+        // Modal control functions
+        function closeSuccessMessage() {
+            document.getElementById('successMessage').classList.add('hidden');
+        }
+
+        function closeErrorMessage() {
+            document.getElementById('errorMessage').classList.add('hidden');
+        }
+
+
+
+
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait a bit for Supabase script to load
+            setTimeout(() => {
+                // Try to initialize Supabase
+                if (initSupabase()) {
+                    console.log('Supabase initialized successfully');
+                } else {
+                    console.log('Supabase not ready yet, will retry when form is submitted');
+                }
+            }, 500);
+            
+            // Check if Supabase is configured
+            if (SUPABASE_URL.includes('YOUR_PROJECT') || SUPABASE_ANON_KEY.includes('YOUR_ANON_KEY')) {
+                console.warn('Supabase not configured. Please update the SUPABASE_URL and SUPABASE_ANON_KEY variables.');
+                
+                // Show configuration message
+                const configMessage = document.createElement('div');
+                configMessage.className = 'fixed top-0 left-0 right-0 bg-yellow-100 border-b-2 border-yellow-300 p-4 z-40';
+                configMessage.innerHTML = `
+                    <div class="max-w-3xl mx-auto text-center">
+                        <p class="text-yellow-800 font-medium">⚠️ Supabase Configuration Required</p>
+                        <p class="text-yellow-700 text-sm">Please update your Supabase URL and API key to enable form submissions.</p>
+                    </div>
+                `;
+                document.body.prepend(configMessage);
+            }
+        });
+    </script>
+
+    <style>
+        /* Custom styles for better form appearance */
+        .border-gray-300 {
+            border-color: #d1d5db;
+        }
+        .focus\:border-blue-500:focus {
+            border-color: #3b82f6;
+        }
+        .focus\:ring-blue-500:focus {
+            --tw-ring-color: #3b82f6;
+        }
+    </style>
+    
+    <!-- Supabase Script -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</body>
+</html>
+
+
