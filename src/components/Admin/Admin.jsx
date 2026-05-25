@@ -36,7 +36,7 @@ export const Admin = ({ clients, workouts, exercises }) => {
                             className={`px-4 py-2 rounded-lg transition-all ${
                                 activeSection === 'analytics'
                                     ? 'bg-purple-600 text-white'
-                                    : 'text-gray-300 hover:bg-white/10'
+                                    : 'text-gray-100 hover:bg-white/10'
                             }`}
                         >
                             Analytics
@@ -46,7 +46,7 @@ export const Admin = ({ clients, workouts, exercises }) => {
                             className={`px-4 py-2 rounded-lg transition-all ${
                                 activeSection === 'forms'
                                     ? 'bg-purple-600 text-white'
-                                    : 'text-gray-300 hover:bg-white/10'
+                                    : 'text-gray-100 hover:bg-white/10'
                             }`}
                         >
                             Forms
@@ -74,7 +74,7 @@ export const Admin = ({ clients, workouts, exercises }) => {
             {/* Empty state when no section is selected */}
             {!activeSection && (
                 <div className="glass rounded-2xl p-12 border border-white/10 text-center">
-                    <p className="text-gray-400 text-lg">Select a section to view content</p>
+                    <p className="text-gray-200 text-lg">Select a section to view content</p>
                 </div>
             )}
         </div>

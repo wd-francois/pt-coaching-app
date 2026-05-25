@@ -161,7 +161,7 @@ export const WorkoutLibraryView = ({
         <div className="space-y-6">
             <div>
                 <h1 className="text-3xl font-bold text-white mb-2">Workouts</h1>
-                <p className="text-gray-400">Browse and manage your saved workout templates</p>
+                <p className="text-gray-200">Browse and manage your saved workout templates</p>
             </div>
 
             {/* Search and Filters */}
@@ -185,7 +185,7 @@ export const WorkoutLibraryView = ({
                                 className={`px-3 py-1 rounded-full text-sm transition-all cursor-pointer ${
                                     isActive
                                         ? 'bg-purple-600 text-white'
-                                        : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                                        : 'bg-white/10 text-gray-100 hover:bg-white/20'
                                 }`}
                             >
                                 {cat}
@@ -198,19 +198,19 @@ export const WorkoutLibraryView = ({
             {/* Templates List */}
             {workoutTemplates.length === 0 ? (
                 <div className="glass rounded-lg p-8 text-center">
-                    <svg className="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-16 h-16 mx-auto mb-4 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                     </svg>
-                    <p className="text-gray-400 text-lg mb-2">No workouts in library</p>
-                    <p className="text-gray-500 text-sm">Save workouts from the workout builder to build your library</p>
+                    <p className="text-gray-200 text-lg mb-2">No workouts in library</p>
+                    <p className="text-gray-300 text-sm">Save workouts from the workout builder to build your library</p>
                 </div>
             ) : filteredTemplates.length === 0 ? (
                 <div className="glass rounded-lg p-8 text-center">
-                    <p className="text-gray-400">
+                    <p className="text-gray-200">
                         {searchTerm || filterCategory !== 'All' ? 'No workouts match your search.' : 'No workouts in library'}
                     </p>
                     {searchTerm || filterCategory !== 'All' ? (
-                        <p className="text-gray-500 text-sm mt-2">Try adjusting your filters</p>
+                        <p className="text-gray-300 text-sm mt-2">Try adjusting your filters</p>
                     ) : null}
                 </div>
             ) : (
@@ -226,14 +226,14 @@ export const WorkoutLibraryView = ({
                                         <h3 className="font-semibold text-white text-lg flex-1">
                                             {template.name || 'Unnamed Workout'}
                                         </h3>
-                                        <span className="text-xs text-gray-400 bg-white/10 px-2 py-1 rounded-full">
+                                        <span className="text-xs text-gray-200 bg-white/10 px-2 py-1 rounded-full">
                                             {template.exercises?.length || 0} exercises
                                         </span>
                                     </div>
                                     
                                     {/* Exercise Preview */}
                                     <div className="mb-3">
-                                        <p className="text-sm text-gray-400 mb-1">Exercises:</p>
+                                        <p className="text-sm text-gray-200 mb-1">Exercises:</p>
                                         <div className="flex flex-wrap gap-2">
                                             {template.exercises?.slice(0, 5).map((ex, idx) => (
                                                 <span
@@ -244,14 +244,14 @@ export const WorkoutLibraryView = ({
                                                 </span>
                                             ))}
                                             {template.exercises?.length > 5 && (
-                                                <span className="text-xs text-gray-400">
+                                                <span className="text-xs text-gray-200">
                                                     +{template.exercises.length - 5} more
                                                 </span>
                                             )}
                                         </div>
                                     </div>
 
-                                    <p className="text-xs text-gray-500 mb-4">
+                                    <p className="text-xs text-gray-300 mb-4">
                                         Created {formatDate(template.createdAt)}
                                     </p>
                                 </div>
@@ -311,7 +311,7 @@ export const WorkoutLibraryView = ({
                             <h2 className="text-2xl font-bold text-white mb-4">Edit Workout Name</h2>
                             <div className="space-y-4">
                                 <div>
-                                    <label htmlFor="edit-workout-name" className="block text-sm font-medium text-gray-300 mb-2">
+                                    <label htmlFor="edit-workout-name" className="block text-sm font-medium text-gray-100 mb-2">
                                         Workout Name
                                     </label>
                                     <input

@@ -130,7 +130,7 @@ const PersonalBestForm = ({ onSubmit, onCancel, initialData = null, exercises = 
     <div className="space-y-4">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="exerciseId" className="block text-sm font-medium text-gray-300 mb-1">
+          <label htmlFor="exerciseId" className="block text-sm font-medium text-gray-100 mb-1">
             Exercise <span className="text-red-400">*</span>
           </label>
           {exercises.length > 0 ? (
@@ -171,7 +171,7 @@ const PersonalBestForm = ({ onSubmit, onCancel, initialData = null, exercises = 
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="weight" className="block text-sm font-medium text-gray-300 mb-1">
+            <label htmlFor="weight" className="block text-sm font-medium text-gray-100 mb-1">
               Weight (kg) <span className="text-red-400">*</span>
             </label>
             <input
@@ -192,7 +192,7 @@ const PersonalBestForm = ({ onSubmit, onCancel, initialData = null, exercises = 
           </div>
 
           <div>
-            <label htmlFor="reps" className="block text-sm font-medium text-gray-300 mb-1">
+            <label htmlFor="reps" className="block text-sm font-medium text-gray-100 mb-1">
               Reps <span className="text-red-400">*</span>
             </label>
             <input
@@ -214,7 +214,7 @@ const PersonalBestForm = ({ onSubmit, onCancel, initialData = null, exercises = 
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="sets" className="block text-sm font-medium text-gray-300 mb-1">
+            <label htmlFor="sets" className="block text-sm font-medium text-gray-100 mb-1">
               Sets (Optional)
             </label>
             <input
@@ -234,7 +234,7 @@ const PersonalBestForm = ({ onSubmit, onCancel, initialData = null, exercises = 
           </div>
 
           <div>
-            <label htmlFor="date" className="block text-sm font-medium text-gray-300 mb-1">
+            <label htmlFor="date" className="block text-sm font-medium text-gray-100 mb-1">
               Date <span className="text-red-400">*</span>
             </label>
             <input
@@ -253,7 +253,7 @@ const PersonalBestForm = ({ onSubmit, onCancel, initialData = null, exercises = 
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-gray-100 mb-1">
             Notes (Optional)
           </label>
           <textarea

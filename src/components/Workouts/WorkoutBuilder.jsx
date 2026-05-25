@@ -965,7 +965,7 @@ export const WorkoutBuilder = ({
                     <div className="grid grid-cols-3 gap-3 flex-1">
                             {client && (
                         <div className={`glass rounded-lg p-3 ${isGroupSession ? 'border border-teal-500/30 bg-teal-900/5' : ''}`}>
-                            <p className="text-sm text-gray-400">Client</p>
+                            <p className="text-sm text-gray-200">Client</p>
                             <p className="text-white font-semibold text-lg">{client.name}</p>
                             {isGroupSession && groupClientIndex >= 0 && (
                                 <p className="text-xs text-teal-400 mt-1">
@@ -976,13 +976,13 @@ export const WorkoutBuilder = ({
                             )}
                             {selectedDate && (
                         <div className="glass rounded-lg p-3">
-                            <p className="text-sm text-gray-400">Date</p>
+                            <p className="text-sm text-gray-200">Date</p>
                             <p className="text-white font-semibold">{formatDateDisplay(selectedDate)}</p>
                         </div>
                             )}
                             {onTimeChange && (
                         <div className="glass rounded-lg p-3">
-                            <label htmlFor="workout-time" className="block text-sm text-gray-400 mb-1">
+                            <label htmlFor="workout-time" className="block text-sm text-gray-200 mb-1">
                                 Session Time
                             </label>
                                     <TimeInput24Hour
@@ -1061,7 +1061,7 @@ export const WorkoutBuilder = ({
                                                 ? 'bg-teal-600 text-white ring-2 ring-teal-400 cursor-default'
                                                 : idx < groupClientIndex
                                                 ? 'bg-teal-600/30 text-teal-300 hover:bg-teal-600/50 cursor-pointer hover:scale-105'
-                                                : 'bg-gray-700 text-gray-400 hover:bg-teal-700/30 cursor-pointer hover:scale-105'
+                                                : 'bg-gray-700 text-gray-200 hover:bg-teal-700/30 cursor-pointer hover:scale-105'
                                         }`}
                                     >
                                         {c.name} {idx < groupClientIndex && '✓'}
@@ -1133,7 +1133,7 @@ export const WorkoutBuilder = ({
                             {/* Filters */}
                             <div className="space-y-3">
                                 <div>
-                                    <p className="text-xs text-gray-400 mb-2">Filters</p>
+                                    <p className="text-xs text-gray-200 mb-2">Filters</p>
                                     <div className="flex gap-2 flex-wrap">
                                         {categories.map(cat => {
                                             const isMostUsed = cat === 'Most Used';
@@ -1144,7 +1144,7 @@ export const WorkoutBuilder = ({
                                                 onClick={() => setFilterCategory(cat)}
                                                     className={`px-3 py-1 rounded-full text-sm transition-all flex items-center gap-1 ${filterCategory === cat
                                                         ? 'bg-purple-600 text-white'
-                                                        : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                                                        : 'bg-white/10 text-gray-100 hover:bg-white/20'
                                                     }`}
                                                     title={isMostUsed ? `${mostUsedCount} exercises have been used in workouts` : ''}
                                             >
@@ -1170,7 +1170,7 @@ export const WorkoutBuilder = ({
                                                     className={`px-3 py-1 rounded-full text-sm transition-all ${
                                                         isSelected
                                                             ? 'bg-blue-600 text-white'
-                                                            : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                                                            : 'bg-white/10 text-gray-100 hover:bg-white/20'
                                                     }`}
                                                 >
                                                     {tag}
@@ -1194,10 +1194,10 @@ export const WorkoutBuilder = ({
 
                             <div className="max-h-64 overflow-y-auto space-y-2">
                                 {exercises.length === 0 ? (
-                                    <p className="text-gray-400 text-center py-4">No exercises in database. Add exercises first.</p>
+                                    <p className="text-gray-200 text-center py-4">No exercises in database. Add exercises first.</p>
                                 ) : filteredExercises.length === 0 ? (
                                     <div className="text-center py-4">
-                                        <p className="text-gray-400 mb-2">No exercises match your filters.</p>
+                                        <p className="text-gray-200 mb-2">No exercises match your filters.</p>
                                         <button
                                             onClick={() => {
                                                 setSearchTerm('');
@@ -1243,7 +1243,7 @@ export const WorkoutBuilder = ({
                     {/* Workout Exercises */}
                     {workoutExercises.length === 0 ? (
                         <div className="glass rounded-lg p-8 text-center">
-                            <p className="text-gray-400">No exercises added yet. Click "Add Exercise" to get started.</p>
+                            <p className="text-gray-200">No exercises added yet. Click "Add Exercise" to get started.</p>
                         </div>
                     ) : (
                         <div className="space-y-3">
@@ -1293,7 +1293,7 @@ export const WorkoutBuilder = ({
                                         <div className="flex items-center gap-3 p-4">
                                         {/* Drag Handle */}
                                         <div className="cursor-move flex-shrink-0" title="Drag to reorder">
-                                            <svg className="w-5 h-5 text-gray-400 hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg className="w-5 h-5 text-gray-200 hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8h16M4 16h16" />
                                             </svg>
                                         </div>
@@ -1340,10 +1340,10 @@ export const WorkoutBuilder = ({
                                                         </span>
                                                     )}
                                                 <h4 className="font-semibold text-white">{getExerciseName(workoutEx.exerciseId)}</h4>
-                                                    <span className="text-sm text-gray-400">{workoutEx.sets.length} set{workoutEx.sets.length !== 1 ? 's' : ''}</span>
+                                                    <span className="text-sm text-gray-200">{workoutEx.sets.length} set{workoutEx.sets.length !== 1 ? 's' : ''}</span>
                                             </div>
                                                 <svg
-                                                    className={`w-5 h-5 text-gray-400 transition-transform flex-shrink-0 ${isExpanded ? 'rotate-180' : ''}`}
+                                                    className={`w-5 h-5 text-gray-200 transition-transform flex-shrink-0 ${isExpanded ? 'rotate-180' : ''}`}
                                                     fill="none"
                                                     stroke="currentColor"
                                                     viewBox="0 0 24 24"
@@ -1362,7 +1362,7 @@ export const WorkoutBuilder = ({
                                                 className={`p-2 rounded-lg transition-colors ${
                                                     isSuperset && supersetColor
                                                         ? `${supersetColor.button}` 
-                                                        : 'hover:bg-white/10 text-gray-400 hover:text-orange-400'
+                                                        : 'hover:bg-white/10 text-gray-200 hover:text-orange-400'
                                                 }`}
                                                 title={isSuperset ? "Remove from superset" : "Add to superset"}
                                             >
@@ -1391,7 +1391,7 @@ export const WorkoutBuilder = ({
                                             <div className="px-4 pb-4 space-y-3 border-t border-white/10 pt-4">
                                             {/* Sets Table */}
                                             <div className="space-y-2">
-                                                <div className="grid grid-cols-12 gap-2 text-xs text-gray-400 px-2">
+                                                <div className="grid grid-cols-12 gap-2 text-xs text-gray-200 px-2">
                                                     <div className="col-span-2">Set</div>
                                                     <div className="col-span-4">Reps</div>
                                                         <div className="col-span-4">Load</div>
@@ -1504,7 +1504,7 @@ export const WorkoutBuilder = ({
 
                                             {/* Notes */}
                                             <div>
-                                                <label className="block text-xs text-gray-400 mb-1">Notes</label>
+                                                <label className="block text-xs text-gray-200 mb-1">Notes</label>
                                                 <textarea
                                                         value={workoutEx.notes || ''}
                                                     onChange={(e) => updateExerciseNotes(exerciseIndex, e.target.value)}
@@ -1525,7 +1525,7 @@ export const WorkoutBuilder = ({
                 {/* Session Notes */}
                 {!isLibraryMode && (
                     <div className="glass rounded-lg p-4">
-                        <label htmlFor="session-notes" className="block text-sm font-medium text-gray-300 mb-2">
+                        <label htmlFor="session-notes" className="block text-sm font-medium text-gray-100 mb-2">
                             Session Notes
                         </label>
                         <textarea
@@ -1536,7 +1536,7 @@ export const WorkoutBuilder = ({
                             rows={4}
                             className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white placeholder-gray-500 resize-none"
                         />
-                        <p className="text-xs text-gray-400 mt-2">
+                        <p className="text-xs text-gray-200 mt-2">
                             These notes will be saved with the workout and can be viewed later
                         </p>
                     </div>
@@ -1592,7 +1592,7 @@ export const WorkoutBuilder = ({
                     <div className="space-y-4">
                         {workoutTemplates.length === 0 ? (
                             <div className="text-center py-8">
-                                <p className="text-gray-400">No workouts available in library</p>
+                                <p className="text-gray-200">No workouts available in library</p>
                             </div>
                         ) : (
                             <div className="space-y-3 max-h-[60vh] overflow-y-auto">
@@ -1617,13 +1617,13 @@ export const WorkoutBuilder = ({
                                                         </span>
                                                     ))}
                                                     {template.exercises?.length > 5 && (
-                                                        <span className="text-xs text-gray-400">
+                                                        <span className="text-xs text-gray-200">
                                                             +{template.exercises.length - 5} more
                                                         </span>
                                                     )}
                                                 </div>
                                             </div>
-                                            <svg className="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg className="w-5 h-5 text-gray-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                             </svg>
                                         </div>
@@ -1660,7 +1660,7 @@ export const WorkoutBuilder = ({
                             if (sortedWorkouts.length === 0) {
                                 return (
                                     <div className="text-center py-8">
-                                        <p className="text-gray-400">
+                                        <p className="text-gray-200">
                                             {client 
                                                 ? `No workouts found for ${client.name}`
                                                 : 'No client workouts available'}
@@ -1697,13 +1697,13 @@ export const WorkoutBuilder = ({
                                                                 </span>
                                                             )}
                                                             {workout.time && (
-                                                                <span className="text-xs text-gray-400">
+                                                                <span className="text-xs text-gray-200">
                                                                     {workout.time}
                                                                 </span>
                                                             )}
                                                         </div>
                                                         {!workout.name && (
-                                                            <p className="text-sm text-gray-400 mb-2">{workoutDate}</p>
+                                                            <p className="text-sm text-gray-200 mb-2">{workoutDate}</p>
                                                         )}
                                                         <div className="flex flex-wrap gap-2">
                                                             {workout.exercises?.slice(0, 5).map((ex, idx) => (
@@ -1715,13 +1715,13 @@ export const WorkoutBuilder = ({
                                                                 </span>
                                                             ))}
                                                             {workout.exercises?.length > 5 && (
-                                                                <span className="text-xs text-gray-400">
+                                                                <span className="text-xs text-gray-200">
                                                                     +{workout.exercises.length - 5} more
                                                                 </span>
                                                             )}
                                                         </div>
                                                     </div>
-                                                    <svg className="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <svg className="w-5 h-5 text-gray-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                                     </svg>
                                                 </div>
@@ -1748,7 +1748,7 @@ export const WorkoutBuilder = ({
                 >
                     <div className="space-y-4">
                         <div>
-                            <label htmlFor="template-name" className="block text-sm font-medium text-gray-300 mb-2">
+                            <label htmlFor="template-name" className="block text-sm font-medium text-gray-100 mb-2">
                                 Workout Name
                             </label>
                             <input
@@ -1766,7 +1766,7 @@ export const WorkoutBuilder = ({
                                 autoFocus
                             />
                         </div>
-                        <div className="text-sm text-gray-400">
+                        <div className="text-sm text-gray-200">
                             {isGroupSession && client?.groupSessionId && client?.groupClients
                                 ? `This will save separate workout templates for each client in the group session. Each template will be named "[Group Name] - [Client Name]" and will contain only that client's exercises.`
                                 : 'This workout will be saved to your library and can be reused for any client.'}

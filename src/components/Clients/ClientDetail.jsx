@@ -228,7 +228,7 @@ export const ClientDetail = ({
                     ← Back to Clients
                 </Button>
                 <div className="glass rounded-lg p-8 text-center">
-                    <p className="text-gray-400">Client not found</p>
+                    <p className="text-gray-200">Client not found</p>
                 </div>
             </div>
         );
@@ -250,7 +250,7 @@ export const ClientDetail = ({
                     <div>
                         <h1 className="text-3xl font-bold gradient-text">{client.name}</h1>
                         {(client.email || client.phone) && (
-                            <p className="text-gray-400">
+                            <p className="text-gray-200">
                                 {client.email || client.phone}
                             </p>
                         )}
@@ -265,7 +265,7 @@ export const ClientDetail = ({
                     className={`px-4 py-2 font-medium transition-colors ${
                         activeTab === 'workouts'
                             ? 'text-purple-400 border-b-2 border-purple-400'
-                            : 'text-gray-400 hover:text-white'
+                            : 'text-gray-200 hover:text-white'
                     }`}
                 >
                     Workouts ({clientWorkouts.length})
@@ -275,7 +275,7 @@ export const ClientDetail = ({
                     className={`px-4 py-2 font-medium transition-colors ${
                         activeTab === 'measurements'
                             ? 'text-purple-400 border-b-2 border-purple-400'
-                            : 'text-gray-400 hover:text-white'
+                            : 'text-gray-200 hover:text-white'
                     }`}
                 >
                     Measurements ({clientMeasurements.length})
@@ -285,7 +285,7 @@ export const ClientDetail = ({
                     className={`px-4 py-2 font-medium transition-colors ${
                         activeTab === 'personalBests'
                             ? 'text-purple-400 border-b-2 border-purple-400'
-                            : 'text-gray-400 hover:text-white'
+                            : 'text-gray-200 hover:text-white'
                     }`}
                 >
                     Personal Bests ({clientPersonalBests.length})
@@ -297,7 +297,7 @@ export const ClientDetail = ({
                 <div className="space-y-4">
                     {clientWorkouts.length === 0 ? (
                         <div className="glass rounded-lg p-8 text-center">
-                            <p className="text-gray-400">No workouts found for this client</p>
+                            <p className="text-gray-200">No workouts found for this client</p>
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -312,7 +312,7 @@ export const ClientDetail = ({
                                                 <h3 className="font-semibold text-white text-lg flex-1">
                                                     {workout.name || formatDateShort(workout.date)}
                                                 </h3>
-                                                <span className="text-xs text-gray-400 bg-white/10 px-2 py-1 rounded-full">
+                                                <span className="text-xs text-gray-200 bg-white/10 px-2 py-1 rounded-full">
                                                     {workout.exercises?.length || 0} exercises
                                                 </span>
                                             </div>
@@ -320,7 +320,7 @@ export const ClientDetail = ({
                                             {/* Date and Time */}
                                             {workout.name && (
                                                 <div className="mb-3">
-                                                    <p className="text-sm text-gray-400">
+                                                    <p className="text-sm text-gray-200">
                                                         {formatDateShort(workout.date)}
                                                         {workout.time && ` • ${formatTime(workout.time)}`}
                                                     </p>
@@ -328,7 +328,7 @@ export const ClientDetail = ({
                                             )}
                                             {!workout.name && workout.time && (
                                                 <div className="mb-3">
-                                                    <p className="text-sm text-gray-400">
+                                                    <p className="text-sm text-gray-200">
                                                         {formatTime(workout.time)}
                                                     </p>
                                                 </div>
@@ -337,7 +337,7 @@ export const ClientDetail = ({
                                             {/* Exercise Preview */}
                                             {workout.exercises && workout.exercises.length > 0 && (
                                                 <div className="mb-3">
-                                                    <p className="text-sm text-gray-400 mb-1">Exercises:</p>
+                                                    <p className="text-sm text-gray-200 mb-1">Exercises:</p>
                                                     <div className="flex flex-wrap gap-2">
                                                         {workout.exercises.slice(0, 5).map((ex, idx) => (
                                                             <span
@@ -348,7 +348,7 @@ export const ClientDetail = ({
                                                             </span>
                                                         ))}
                                                         {workout.exercises.length > 5 && (
-                                                            <span className="text-xs text-gray-400">
+                                                            <span className="text-xs text-gray-200">
                                                                 +{workout.exercises.length - 5} more
                                                             </span>
                                                         )}
@@ -359,8 +359,8 @@ export const ClientDetail = ({
                                             {/* Session Notes */}
                                             {workout.notes && (
                                                 <div className="mb-3 pt-3 border-t border-white/10">
-                                                    <p className="text-sm text-gray-400 mb-1">Session Notes:</p>
-                                                    <p className="text-sm text-gray-300 whitespace-pre-wrap">
+                                                    <p className="text-sm text-gray-200 mb-1">Session Notes:</p>
+                                                    <p className="text-sm text-gray-100 whitespace-pre-wrap">
                                                         {workout.notes}
                                                     </p>
                                                 </div>
@@ -433,11 +433,11 @@ export const ClientDetail = ({
                     </div>
                     {loading ? (
                         <div className="glass rounded-lg p-8 text-center">
-                            <p className="text-gray-400">Loading measurements...</p>
+                            <p className="text-gray-200">Loading measurements...</p>
                         </div>
                     ) : clientMeasurements.length === 0 ? (
                         <div className="glass rounded-lg p-8 text-center">
-                            <p className="text-gray-400">No measurements recorded</p>
+                            <p className="text-gray-200">No measurements recorded</p>
                         </div>
                     ) : (
                         <MeasurementsList
@@ -474,7 +474,7 @@ export const ClientDetail = ({
                     </div>
                     {clientPersonalBests.length === 0 ? (
                         <div className="glass rounded-lg p-8 text-center">
-                            <p className="text-gray-400">No personal bests recorded</p>
+                            <p className="text-gray-200">No personal bests recorded</p>
                         </div>
                     ) : (
                         <div className="space-y-3">
@@ -490,13 +490,13 @@ export const ClientDetail = ({
                                                     {pb.reps} reps @ {pb.weight}
                                                 </span>
                                                 {pb.date && (
-                                                    <span className="text-sm text-gray-400">
+                                                    <span className="text-sm text-gray-200">
                                                         {formatDate(new Date(pb.date).toISOString().split('T')[0])}
                                                     </span>
                                                 )}
                                             </div>
                                             {pb.notes && (
-                                                <p className="text-sm text-gray-400 mt-2">{pb.notes}</p>
+                                                <p className="text-sm text-gray-200 mt-2">{pb.notes}</p>
                                             )}
                                         </div>
                                         <div className="flex gap-2">
@@ -508,7 +508,7 @@ export const ClientDetail = ({
                                                 className="p-2 hover:bg-white/10 rounded-lg transition-colors"
                                                 aria-label="Edit personal best"
                                             >
-                                                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <svg className="w-4 h-4 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                 </svg>
                                             </button>
@@ -578,7 +578,7 @@ export const ClientDetail = ({
                             <h2 className="text-2xl font-bold text-white mb-4">Rename Workout</h2>
                             <div className="space-y-4">
                                 <div>
-                                    <label htmlFor="edit-workout-name" className="block text-sm font-medium text-gray-300 mb-2">
+                                    <label htmlFor="edit-workout-name" className="block text-sm font-medium text-gray-100 mb-2">
                                         Workout Name
                                     </label>
                                     <input

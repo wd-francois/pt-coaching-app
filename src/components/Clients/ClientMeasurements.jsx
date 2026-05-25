@@ -125,7 +125,7 @@ export const ClientMeasurements = ({ isOpen, onClose, client, onCreate, onUpdate
             >
                 <div className="space-y-4">
                     <div className="flex justify-between items-center">
-                        <p className="text-gray-400">Track and manage client measurements over time</p>
+                        <p className="text-gray-200">Track and manage client measurements over time</p>
                         <Button onClick={handleAdd} icon={
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -142,12 +142,12 @@ export const ClientMeasurements = ({ isOpen, onClose, client, onCreate, onUpdate
                     ) : clientMeasurements.length === 0 ? (
                         <div className="glass rounded-lg p-12 text-center">
                             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-white/5 flex items-center justify-center">
-                                <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-8 h-8 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                                 </svg>
                             </div>
                             <h3 className="text-xl font-semibold mb-2 text-white">No measurements yet</h3>
-                            <p className="text-gray-400 mb-6">Get started by adding the first measurement</p>
+                            <p className="text-gray-200 mb-6">Get started by adding the first measurement</p>
                             <Button onClick={handleAdd}>Add First Measurement</Button>
                         </div>
                     ) : (
@@ -182,54 +182,54 @@ export const ClientMeasurements = ({ isOpen, onClose, client, onCreate, onUpdate
 
                                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                                         <div>
-                                            <span className="text-gray-400">Weight:</span>
+                                            <span className="text-gray-200">Weight:</span>
                                             <p className="text-white font-medium">{formatValue(measurement.weight, 'kg')}</p>
                                         </div>
                                         {measurement.chest && (
                                             <div>
-                                                <span className="text-gray-400">Chest:</span>
+                                                <span className="text-gray-200">Chest:</span>
                                                 <p className="text-white font-medium">{formatValue(measurement.chest, 'cm')}</p>
                                             </div>
                                         )}
                                         {measurement.waist && (
                                             <div>
-                                                <span className="text-gray-400">Waist:</span>
+                                                <span className="text-gray-200">Waist:</span>
                                                 <p className="text-white font-medium">{formatValue(measurement.waist, 'cm')}</p>
                                             </div>
                                         )}
                                         {measurement.hips && (
                                             <div>
-                                                <span className="text-gray-400">Hips:</span>
+                                                <span className="text-gray-200">Hips:</span>
                                                 <p className="text-white font-medium">{formatValue(measurement.hips, 'cm')}</p>
                                             </div>
                                         )}
                                         {measurement.neck && (
                                             <div>
-                                                <span className="text-gray-400">Neck:</span>
+                                                <span className="text-gray-200">Neck:</span>
                                                 <p className="text-white font-medium">{formatValue(measurement.neck, 'cm')}</p>
                                             </div>
                                         )}
                                         {measurement.shoulders && (
                                             <div>
-                                                <span className="text-gray-400">Shoulders:</span>
+                                                <span className="text-gray-200">Shoulders:</span>
                                                 <p className="text-white font-medium">{formatValue(measurement.shoulders, 'cm')}</p>
                                             </div>
                                         )}
                                         {measurement.thigh != null && measurement.thigh !== '' && (
                                             <div>
-                                                <span className="text-gray-400">Thigh (Upper):</span>
+                                                <span className="text-gray-200">Thigh (Upper):</span>
                                                 <p className="text-white font-medium">{formatValue(measurement.thigh, 'cm')}</p>
                                             </div>
                                         )}
                                         {measurement.thighLower != null && measurement.thighLower !== '' && (
                                             <div>
-                                                <span className="text-gray-400">Thigh (Lower):</span>
+                                                <span className="text-gray-200">Thigh (Lower):</span>
                                                 <p className="text-white font-medium">{formatValue(measurement.thighLower, 'cm')}</p>
                                             </div>
                                         )}
                                         {measurement.arm && (
                                             <div>
-                                                <span className="text-gray-400">Arm:</span>
+                                                <span className="text-gray-200">Arm:</span>
                                                 <p className="text-white font-medium">{formatValue(measurement.arm, 'cm')}</p>
                                             </div>
                                         )}
@@ -243,7 +243,7 @@ export const ClientMeasurements = ({ isOpen, onClose, client, onCreate, onUpdate
                                             ) != null
                                     ) && (
                                         <div className="mt-3 pt-3 border-t border-white/10">
-                                            <p className="text-xs text-gray-400 mb-2">Skinfolds:</p>
+                                            <p className="text-xs text-gray-200 mb-2">Skinfolds:</p>
                                             <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-xs">
                                                 {SKINFOLD_ROWS.map(({ site, label, legacyKey }) => {
                                                     const line = formatSkinfoldReadingsLine(
@@ -253,7 +253,7 @@ export const ClientMeasurements = ({ isOpen, onClose, client, onCreate, onUpdate
                                                     if (!line) return null;
                                                     return (
                                                         <div key={site}>
-                                                            <span className="text-gray-400">{label}:</span>
+                                                            <span className="text-gray-200">{label}:</span>
                                                             <span className="text-white ml-1">{line} mm</span>
                                                         </div>
                                                     );
@@ -264,8 +264,8 @@ export const ClientMeasurements = ({ isOpen, onClose, client, onCreate, onUpdate
 
                                     {measurement.notes && (
                                         <div className="mt-3 pt-3 border-t border-white/10">
-                                            <p className="text-xs text-gray-400 mb-1">Notes:</p>
-                                            <p className="text-sm text-gray-300">{measurement.notes}</p>
+                                            <p className="text-xs text-gray-200 mb-1">Notes:</p>
+                                            <p className="text-sm text-gray-100">{measurement.notes}</p>
                                         </div>
                                     )}
                                 </div>

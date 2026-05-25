@@ -498,7 +498,7 @@ export const QuestionnaireList = () => {
     if (!isSupabaseConfigured) {
         return (
             <div className="glass rounded-2xl p-8 border border-white/10 text-center">
-                <p className="text-gray-400">Supabase is not configured. Please set up your environment variables.</p>
+                <p className="text-gray-200">Supabase is not configured. Please set up your environment variables.</p>
             </div>
         );
     }
@@ -506,7 +506,7 @@ export const QuestionnaireList = () => {
     if (loading) {
         return (
             <div className="glass rounded-2xl p-8 border border-white/10 text-center">
-                <p className="text-gray-400">Loading questionnaires...</p>
+                <p className="text-gray-200">Loading questionnaires...</p>
             </div>
         );
     }
@@ -518,7 +518,7 @@ export const QuestionnaireList = () => {
                 <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
                     <div>
                         <h2 className="text-2xl font-bold text-white">Form Submissions</h2>
-                        <p className="text-gray-400 mt-1">{questionnaires.length} total submission{questionnaires.length !== 1 ? 's' : ''}</p>
+                        <p className="text-gray-200 mt-1">{questionnaires.length} total submission{questionnaires.length !== 1 ? 's' : ''}</p>
                     </div>
                     <div className="flex gap-2 flex-wrap">
                         <input
@@ -558,7 +558,7 @@ export const QuestionnaireList = () => {
             {/* Questionnaires List */}
             {filteredQuestionnaires.length === 0 ? (
                 <div className="glass rounded-2xl p-12 border border-white/10 text-center">
-                    <p className="text-gray-400 text-lg">
+                    <p className="text-gray-200 text-lg">
                         {searchTerm ? 'No questionnaires found matching your search.' : 'No questionnaires submitted yet.'}
                     </p>
                 </div>
@@ -583,7 +583,7 @@ export const QuestionnaireList = () => {
                                                     aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
                                                 >
                                                     <svg 
-                                                        className={`w-5 h-5 text-gray-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                                                        className={`w-5 h-5 text-gray-200 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
                                                         fill="none" 
                                                         stroke="currentColor" 
                                                         viewBox="0 0 24 24"
@@ -592,7 +592,7 @@ export const QuestionnaireList = () => {
                                                     </svg>
                                                 </button>
                                             </div>
-                                            <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-300">
+                                            <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-100">
                                                 <p><span className="font-medium">Email:</span> {q.email}</p>
                                                 <p><span className="font-medium">Date of Birth:</span> {formatDate(q.date_of_birth)}</p>
                                                 <p><span className="font-medium">Gender:</span> {q.gender || 'N/A'}</p>
@@ -603,7 +603,7 @@ export const QuestionnaireList = () => {
                                                 )}
                                             </div>
                                             {q.goals && (
-                                                <p className="mt-3 text-sm text-gray-400 line-clamp-2">
+                                                <p className="mt-3 text-sm text-gray-200 line-clamp-2">
                                                     <span className="font-medium">Goals:</span> {q.goals}
                                                 </p>
                                             )}
@@ -643,7 +643,7 @@ export const QuestionnaireList = () => {
                                             {q.medical_details && (
                                                 <div>
                                                     <h4 className="text-sm font-semibold text-white mb-2">Additional Medical Information:</h4>
-                                                    <p className="text-sm text-gray-300 bg-white/5 p-3 rounded-lg">{q.medical_details}</p>
+                                                    <p className="text-sm text-gray-100 bg-white/5 p-3 rounded-lg">{q.medical_details}</p>
                                                 </div>
                                             )}
 
@@ -652,19 +652,19 @@ export const QuestionnaireList = () => {
                                                 {q.current_activities && (
                                                     <div>
                                                         <h4 className="text-sm font-semibold text-white mb-2">Current Activities:</h4>
-                                                        <p className="text-sm text-gray-300 bg-white/5 p-3 rounded-lg">{q.current_activities}</p>
+                                                        <p className="text-sm text-gray-100 bg-white/5 p-3 rounded-lg">{q.current_activities}</p>
                                                     </div>
                                                 )}
                                                 {q.exercise_history && (
                                                     <div>
                                                         <h4 className="text-sm font-semibold text-white mb-2">Exercise History:</h4>
-                                                        <p className="text-sm text-gray-300 bg-white/5 p-3 rounded-lg">{q.exercise_history}</p>
+                                                        <p className="text-sm text-gray-100 bg-white/5 p-3 rounded-lg">{q.exercise_history}</p>
                                                     </div>
                                                 )}
                                                 {q.trainer_experience && (
                                                     <div>
                                                         <h4 className="text-sm font-semibold text-white mb-2">Previous Trainer Experience:</h4>
-                                                        <p className="text-sm text-gray-300 bg-white/5 p-3 rounded-lg">{q.trainer_experience}</p>
+                                                        <p className="text-sm text-gray-100 bg-white/5 p-3 rounded-lg">{q.trainer_experience}</p>
                                                     </div>
                                                 )}
                                             </div>
@@ -673,20 +673,20 @@ export const QuestionnaireList = () => {
                                             {q.goals && (
                                                 <div>
                                                     <h4 className="text-sm font-semibold text-white mb-2">Fitness Goals:</h4>
-                                                    <p className="text-sm text-gray-300 bg-white/5 p-3 rounded-lg">{q.goals}</p>
+                                                    <p className="text-sm text-gray-100 bg-white/5 p-3 rounded-lg">{q.goals}</p>
                                                 </div>
                                             )}
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                 {q.timeframe && (
                                                     <div>
                                                         <h4 className="text-sm font-semibold text-white mb-2">Goal Timeframe:</h4>
-                                                        <p className="text-sm text-gray-300">{q.timeframe}</p>
+                                                        <p className="text-sm text-gray-100">{q.timeframe}</p>
                                                     </div>
                                                 )}
                                                 {q.importance && (
                                                     <div>
                                                         <h4 className="text-sm font-semibold text-white mb-2">Goal Importance:</h4>
-                                                        <p className="text-sm text-gray-300">{q.importance}/10</p>
+                                                        <p className="text-sm text-gray-100">{q.importance}/10</p>
                                                     </div>
                                                 )}
                                             </div>
@@ -742,7 +742,7 @@ export const QuestionnaireList = () => {
                 size="sm"
             >
                 <div className="space-y-4">
-                    <p className="text-gray-300">Are you sure you want to delete this questionnaire? This action cannot be undone.</p>
+                    <p className="text-gray-100">Are you sure you want to delete this questionnaire? This action cannot be undone.</p>
                     <div className="flex gap-3 justify-end">
                         <Button
                             onClick={() => {
@@ -824,7 +824,7 @@ const QuestionnaireEditForm = ({ questionnaire, onSave, onCancel }) => {
                 <h3 className="text-lg font-bold text-white border-b border-white/10 pb-2">Personal Information</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">First name *</label>
+                        <label className="block text-sm font-medium text-gray-100 mb-1">First name *</label>
                         <input
                             type="text"
                             required
@@ -834,7 +834,7 @@ const QuestionnaireEditForm = ({ questionnaire, onSave, onCancel }) => {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">Last name *</label>
+                        <label className="block text-sm font-medium text-gray-100 mb-1">Last name *</label>
                         <input
                             type="text"
                             required
@@ -844,7 +844,7 @@ const QuestionnaireEditForm = ({ questionnaire, onSave, onCancel }) => {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">Date of Birth</label>
+                        <label className="block text-sm font-medium text-gray-100 mb-1">Date of Birth</label>
                         <input
                             type="date"
                             value={formData.dateOfBirth}
@@ -853,7 +853,7 @@ const QuestionnaireEditForm = ({ questionnaire, onSave, onCancel }) => {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">Gender</label>
+                        <label className="block text-sm font-medium text-gray-100 mb-1">Gender</label>
                         <select
                             value={formData.gender}
                             onChange={(e) => handleInputChange('gender', e.target.value)}
@@ -867,7 +867,7 @@ const QuestionnaireEditForm = ({ questionnaire, onSave, onCancel }) => {
                         </select>
                     </div>
                     <div className="sm:col-span-2">
-                        <label className="block text-sm font-medium text-gray-300 mb-1">Email *</label>
+                        <label className="block text-sm font-medium text-gray-100 mb-1">Email *</label>
                         <input
                             type="email"
                             required
@@ -903,12 +903,12 @@ const QuestionnaireEditForm = ({ questionnaire, onSave, onCancel }) => {
                                 onChange={(e) => handleInputChange(`medicalConditions.${key}`, e.target.checked)}
                                 className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                             />
-                            <label htmlFor={`edit-${key}`} className="ml-2 text-sm text-gray-300">{label}</label>
+                            <label htmlFor={`edit-${key}`} className="ml-2 text-sm text-gray-100">{label}</label>
                         </div>
                     ))}
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-1">Additional Medical Information</label>
+                    <label className="block text-sm font-medium text-gray-100 mb-1">Additional Medical Information</label>
                     <textarea
                         rows="3"
                         value={formData.medicalDetails}
@@ -922,7 +922,7 @@ const QuestionnaireEditForm = ({ questionnaire, onSave, onCancel }) => {
             <div className="space-y-4">
                 <h3 className="text-lg font-bold text-white border-b border-white/10 pb-2">Fitness Information</h3>
                 <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-1">Fitness Level (1-10)</label>
+                    <label className="block text-sm font-medium text-gray-100 mb-1">Fitness Level (1-10)</label>
                     <input
                         type="number"
                         min="1"
@@ -933,7 +933,7 @@ const QuestionnaireEditForm = ({ questionnaire, onSave, onCancel }) => {
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-1">Current Activities</label>
+                    <label className="block text-sm font-medium text-gray-100 mb-1">Current Activities</label>
                     <textarea
                         rows="2"
                         value={formData.currentActivities}
@@ -942,7 +942,7 @@ const QuestionnaireEditForm = ({ questionnaire, onSave, onCancel }) => {
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-1">Exercise History</label>
+                    <label className="block text-sm font-medium text-gray-100 mb-1">Exercise History</label>
                     <textarea
                         rows="2"
                         value={formData.exerciseHistory}
@@ -951,7 +951,7 @@ const QuestionnaireEditForm = ({ questionnaire, onSave, onCancel }) => {
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-1">Trainer Experience</label>
+                    <label className="block text-sm font-medium text-gray-100 mb-1">Trainer Experience</label>
                     <textarea
                         rows="2"
                         value={formData.trainerExperience}
@@ -965,7 +965,7 @@ const QuestionnaireEditForm = ({ questionnaire, onSave, onCancel }) => {
             <div className="space-y-4">
                 <h3 className="text-lg font-bold text-white border-b border-white/10 pb-2">Fitness Goals</h3>
                 <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-1">Goals</label>
+                    <label className="block text-sm font-medium text-gray-100 mb-1">Goals</label>
                     <textarea
                         rows="3"
                         value={formData.goals}
@@ -974,7 +974,7 @@ const QuestionnaireEditForm = ({ questionnaire, onSave, onCancel }) => {
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-1">Timeframe</label>
+                    <label className="block text-sm font-medium text-gray-100 mb-1">Timeframe</label>
                     <input
                         type="text"
                         value={formData.timeframe}
@@ -983,7 +983,7 @@ const QuestionnaireEditForm = ({ questionnaire, onSave, onCancel }) => {
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-1">Importance (1-10)</label>
+                    <label className="block text-sm font-medium text-gray-100 mb-1">Importance (1-10)</label>
                     <input
                         type="number"
                         min="1"

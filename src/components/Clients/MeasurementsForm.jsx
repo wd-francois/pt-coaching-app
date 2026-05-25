@@ -327,7 +327,7 @@ export const MeasurementsForm = ({ onSubmit, onCancel, initialData = null, setti
             const ek = skinfoldErrorKey(site, idx);
             return (
               <div key={ek}>
-                <label htmlFor={inputId} className="block text-xs text-gray-400 mb-1">
+                <label htmlFor={inputId} className="block text-xs text-gray-200 mb-1">
                   Reading {idx + 1}
                 </label>
                 <div className="relative">
@@ -364,7 +364,7 @@ export const MeasurementsForm = ({ onSubmit, onCancel, initialData = null, setti
         <div className="flex items-center justify-between">
           <h4 className="text-lg font-medium text-white">Skinfolds</h4>
           <svg
-            className={`w-5 h-5 text-gray-400 transform transition-transform ${openSections.skinfolds ? 'rotate-180' : ''}`}
+            className={`w-5 h-5 text-gray-200 transform transition-transform ${openSections.skinfolds ? 'rotate-180' : ''}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -375,7 +375,7 @@ export const MeasurementsForm = ({ onSubmit, onCancel, initialData = null, setti
       </button>
       {openSections.skinfolds && (
         <div className="p-3 sm:p-4 bg-gray-900/50 rounded-b-lg">
-          <p className="text-xs text-gray-500 mb-3">Up to three readings per site (e.g. triplicate protocol).</p>
+          <p className="text-xs text-gray-300 mb-3">Up to three readings per site (e.g. triplicate protocol).</p>
           <div className="flex flex-col gap-4 sm:gap-5">{SKINFOLD_SITES.map(renderSkinfoldSite)}</div>
         </div>
       )}
@@ -392,7 +392,7 @@ export const MeasurementsForm = ({ onSubmit, onCancel, initialData = null, setti
         <div className="flex items-center justify-between">
           <h4 className="text-lg font-medium text-white">{title}</h4>
           <svg
-            className={`w-5 h-5 text-gray-400 transform transition-transform ${openSections[sectionKey] ? 'rotate-180' : ''}`}
+            className={`w-5 h-5 text-gray-200 transform transition-transform ${openSections[sectionKey] ? 'rotate-180' : ''}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -420,7 +420,7 @@ export const MeasurementsForm = ({ onSubmit, onCancel, initialData = null, setti
         <button
           onClick={onCancel}
           aria-label="Close measurements form"
-          className="text-gray-400 hover:text-gray-200 transition-colors p-1"
+          className="text-gray-200 hover:text-gray-200 transition-colors p-1"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

@@ -155,7 +155,7 @@ export const Sessions = ({ workouts, clients }) => {
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-bold gradient-text">Sessions</h1>
-                    <p className="text-gray-400 mt-1">View weekly & monthly session statistics</p>
+                    <p className="text-gray-200 mt-1">View weekly & monthly session statistics</p>
                 </div>
                 <Button onClick={goToCurrentPeriod} variant="secondary">
                     Current {viewType === 'weekly' ? 'Week' : 'Month'}
@@ -170,7 +170,7 @@ export const Sessions = ({ workouts, clients }) => {
                         className={`flex-1 px-4 py-2 rounded-lg font-medium transition-all ${
                             viewType === 'weekly'
                                 ? 'bg-purple-600 text-white'
-                                : 'bg-white/5 text-gray-300 hover:bg-white/10'
+                                : 'bg-white/5 text-gray-100 hover:bg-white/10'
                         }`}
                     >
                         Weekly
@@ -180,7 +180,7 @@ export const Sessions = ({ workouts, clients }) => {
                         className={`flex-1 px-4 py-2 rounded-lg font-medium transition-all ${
                             viewType === 'monthly'
                                 ? 'bg-purple-600 text-white'
-                                : 'bg-white/5 text-gray-300 hover:bg-white/10'
+                                : 'bg-white/5 text-gray-100 hover:bg-white/10'
                         }`}
                     >
                         Monthly
@@ -209,15 +209,15 @@ export const Sessions = ({ workouts, clients }) => {
                 {/* Summary Stats */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                     <div className="glass glass-hover p-4 rounded-lg">
-                        <div className="text-sm text-gray-400 mb-1">Total Sessions</div>
+                        <div className="text-sm text-gray-200 mb-1">Total Sessions</div>
                         <div className="text-3xl font-bold text-white">{totalSessions}</div>
                     </div>
                     <div className="glass glass-hover p-4 rounded-lg">
-                        <div className="text-sm text-gray-400 mb-1">Active Clients</div>
+                        <div className="text-sm text-gray-200 mb-1">Active Clients</div>
                         <div className="text-3xl font-bold text-white">{uniqueClients}</div>
                     </div>
                     <div className="glass glass-hover p-4 rounded-lg">
-                        <div className="text-sm text-gray-400 mb-1">Avg. Sessions/Day</div>
+                        <div className="text-sm text-gray-200 mb-1">Avg. Sessions/Day</div>
                         <div className="text-3xl font-bold text-white">
                             {viewType === 'weekly' 
                                 ? (totalSessions / 7).toFixed(1)
@@ -243,7 +243,7 @@ export const Sessions = ({ workouts, clients }) => {
                                             </div>
                                             <div>
                                                 <div className="font-semibold text-white">{client.name}</div>
-                                                <div className="text-sm text-gray-400">{client.count} session{client.count !== 1 ? 's' : ''}</div>
+                                                <div className="text-sm text-gray-200">{client.count} session{client.count !== 1 ? 's' : ''}</div>
                                             </div>
                                         </div>
                                         <div className="text-right">
@@ -254,7 +254,7 @@ export const Sessions = ({ workouts, clients }) => {
                             ))
                         ) : (
                             <div className="glass glass-hover p-8 rounded-lg text-center">
-                                <p className="text-gray-400">No sessions found for this {viewType === 'weekly' ? 'week' : 'month'}</p>
+                                <p className="text-gray-200">No sessions found for this {viewType === 'weekly' ? 'week' : 'month'}</p>
                             </div>
                         )}
                     </div>
@@ -282,7 +282,7 @@ export const Sessions = ({ workouts, clients }) => {
                                                     {dayNames[dateObj.getDay()]}, {monthNames[dateObj.getMonth()]} {dateObj.getDate()}
                                                     {isToday && <span className="ml-2 text-xs text-purple-400">(Today)</span>}
                                                 </div>
-                                                <div className="text-sm text-gray-400 mt-1">
+                                                <div className="text-sm text-gray-200 mt-1">
                                                     {workouts.map((w, idx) => {
                                                         const client = clients.find(c => c.id === w.clientId);
                                                         // Format time to 24-hour format (HH:MM)
@@ -314,7 +314,7 @@ export const Sessions = ({ workouts, clients }) => {
                                             </div>
                                             <div className="text-right">
                                                 <div className="text-2xl font-bold text-purple-400">{workouts.length}</div>
-                                                <div className="text-xs text-gray-400">session{workouts.length !== 1 ? 's' : ''}</div>
+                                                <div className="text-xs text-gray-200">session{workouts.length !== 1 ? 's' : ''}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -322,7 +322,7 @@ export const Sessions = ({ workouts, clients }) => {
                             })
                         ) : (
                             <div className="glass glass-hover p-8 rounded-lg text-center">
-                                <p className="text-gray-400">No sessions scheduled for this {viewType === 'weekly' ? 'week' : 'month'}</p>
+                                <p className="text-gray-200">No sessions scheduled for this {viewType === 'weekly' ? 'week' : 'month'}</p>
                             </div>
                         )}
                     </div>

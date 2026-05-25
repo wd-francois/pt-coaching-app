@@ -111,7 +111,7 @@ export const SignUpForm = () => {
             <div className="glass rounded-2xl p-6 border border-white/10">
                 <div className="text-center mb-6">
                     <h1 className="text-3xl font-bold gradient-text">Exercise Pre-Screening Questionnaire</h1>
-                    <p className="mt-2 text-gray-400">Please complete this form to help us understand your fitness needs and medical history</p>
+                    <p className="mt-2 text-gray-200">Please complete this form to help us understand your fitness needs and medical history</p>
                 </div>
 
                 {/* Disclaimer */}
@@ -139,7 +139,7 @@ export const SignUpForm = () => {
                         <h2 className="text-xl font-bold text-white border-b-2 border-purple-500 pb-2">Personal Information</h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label htmlFor="firstName" className="block text-sm font-medium text-gray-300 mb-1">First name</label>
+                                <label htmlFor="firstName" className="block text-sm font-medium text-gray-100 mb-1">First name</label>
                                 <input
                                     type="text"
                                     id="firstName"
@@ -151,7 +151,7 @@ export const SignUpForm = () => {
                                 />
                             </div>
                             <div>
-                                <label htmlFor="lastName" className="block text-sm font-medium text-gray-300 mb-1">Last name</label>
+                                <label htmlFor="lastName" className="block text-sm font-medium text-gray-100 mb-1">Last name</label>
                                 <input
                                     type="text"
                                     id="lastName"
@@ -163,7 +163,7 @@ export const SignUpForm = () => {
                                 />
                             </div>
                             <div>
-                                <label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-300 mb-1">Date of Birth</label>
+                                <label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-100 mb-1">Date of Birth</label>
                                 <input
                                     type="date"
                                     id="dateOfBirth"
@@ -174,7 +174,7 @@ export const SignUpForm = () => {
                                 />
                             </div>
                             <div>
-                                <label htmlFor="gender" className="block text-sm font-medium text-gray-300 mb-1">Gender</label>
+                                <label htmlFor="gender" className="block text-sm font-medium text-gray-100 mb-1">Gender</label>
                                 <select
                                     id="gender"
                                     required
@@ -190,7 +190,7 @@ export const SignUpForm = () => {
                                 </select>
                             </div>
                             <div className="sm:col-span-2">
-                                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">Email address</label>
+                                <label htmlFor="email" className="block text-sm font-medium text-gray-100 mb-1">Email address</label>
                                 <input
                                     type="email"
                                     id="email"
@@ -207,7 +207,7 @@ export const SignUpForm = () => {
                     {/* Medical Conditions */}
                     <div className="space-y-4">
                         <h2 className="text-xl font-bold text-white border-b-2 border-purple-500 pb-2">Medical Conditions</h2>
-                        <p className="text-sm text-gray-400">Please check all that apply:</p>
+                        <p className="text-sm text-gray-200">Please check all that apply:</p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             {Object.entries({
                                 heartCondition: 'Heart Condition',
@@ -229,12 +229,12 @@ export const SignUpForm = () => {
                                         onChange={(e) => handleInputChange(`medicalConditions.${key}`, e.target.checked)}
                                         className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                                     />
-                                    <label htmlFor={key} className="ml-2 text-sm text-gray-300">{label}</label>
+                                    <label htmlFor={key} className="ml-2 text-sm text-gray-100">{label}</label>
                                 </div>
                             ))}
                         </div>
                         <div>
-                            <label htmlFor="medicalDetails" className="block text-sm font-medium text-gray-300 mb-1">Additional Medical Information</label>
+                            <label htmlFor="medicalDetails" className="block text-sm font-medium text-gray-100 mb-1">Additional Medical Information</label>
                             <textarea
                                 id="medicalDetails"
                                 rows="3"
@@ -250,7 +250,7 @@ export const SignUpForm = () => {
                     <div className="space-y-4">
                         <h2 className="text-xl font-bold text-white border-b-2 border-purple-500 pb-2">Fitness Information</h2>
                         <div>
-                            <label htmlFor="fitnessLevel" className="block text-sm font-medium text-gray-300 mb-1">Current Fitness Level (1-10)</label>
+                            <label htmlFor="fitnessLevel" className="block text-sm font-medium text-gray-100 mb-1">Current Fitness Level (1-10)</label>
                             <input
                                 type="number"
                                 id="fitnessLevel"
@@ -261,10 +261,10 @@ export const SignUpForm = () => {
                                 className="w-full px-4 py-2 glass rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500 text-white placeholder-gray-400"
                                 placeholder="Enter a number between 1 and 10"
                             />
-                            <p className="mt-1 text-sm text-gray-400">1 being very sedentary, 10 being extremely active</p>
+                            <p className="mt-1 text-sm text-gray-200">1 being very sedentary, 10 being extremely active</p>
                         </div>
                         <div>
-                            <label htmlFor="currentActivities" className="block text-sm font-medium text-gray-300 mb-1">Current Physical Activities</label>
+                            <label htmlFor="currentActivities" className="block text-sm font-medium text-gray-100 mb-1">Current Physical Activities</label>
                             <textarea
                                 id="currentActivities"
                                 rows="2"
@@ -275,7 +275,7 @@ export const SignUpForm = () => {
                             />
                         </div>
                         <div>
-                            <label htmlFor="exerciseHistory" className="block text-sm font-medium text-gray-300 mb-1">Exercise History</label>
+                            <label htmlFor="exerciseHistory" className="block text-sm font-medium text-gray-100 mb-1">Exercise History</label>
                             <textarea
                                 id="exerciseHistory"
                                 rows="2"
@@ -286,7 +286,7 @@ export const SignUpForm = () => {
                             />
                         </div>
                         <div>
-                            <label htmlFor="trainerExperience" className="block text-sm font-medium text-gray-300 mb-1">Previous Trainer Experience</label>
+                            <label htmlFor="trainerExperience" className="block text-sm font-medium text-gray-100 mb-1">Previous Trainer Experience</label>
                             <textarea
                                 id="trainerExperience"
                                 rows="2"
@@ -302,7 +302,7 @@ export const SignUpForm = () => {
                     <div className="space-y-4">
                         <h2 className="text-xl font-bold text-white border-b-2 border-purple-500 pb-2">Fitness Goals</h2>
                         <div>
-                            <label htmlFor="goals" className="block text-sm font-medium text-gray-300 mb-1">What are your fitness goals?</label>
+                            <label htmlFor="goals" className="block text-sm font-medium text-gray-100 mb-1">What are your fitness goals?</label>
                             <textarea
                                 id="goals"
                                 rows="3"
@@ -313,7 +313,7 @@ export const SignUpForm = () => {
                             />
                         </div>
                         <div>
-                            <label htmlFor="timeframe" className="block text-sm font-medium text-gray-300 mb-1">Goal Timeframe</label>
+                            <label htmlFor="timeframe" className="block text-sm font-medium text-gray-100 mb-1">Goal Timeframe</label>
                             <input
                                 type="text"
                                 id="timeframe"
@@ -324,7 +324,7 @@ export const SignUpForm = () => {
                             />
                         </div>
                         <div>
-                            <label htmlFor="importance" className="block text-sm font-medium text-gray-300 mb-1">Goal Importance (1-10)</label>
+                            <label htmlFor="importance" className="block text-sm font-medium text-gray-100 mb-1">Goal Importance (1-10)</label>
                             <input
                                 type="number"
                                 id="importance"
@@ -342,7 +342,7 @@ export const SignUpForm = () => {
                     <div className="space-y-4">
                         <h2 className="text-xl font-bold text-white border-b-2 border-purple-500 pb-2">Agreement</h2>
                         <div className="glass rounded-lg p-4 border border-white/10">
-                            <p className="text-sm text-gray-300">
+                            <p className="text-sm text-gray-100">
                                 I confirm that all information provided is accurate to the best of my knowledge. I understand that I should inform my trainer of any changes to my medical condition and complete a new questionnaire if necessary. I acknowledge that participating in physical activity carries inherent risks, and I accept responsibility for these risks. I understand that Fusion Strength & Conditioning will exercise due care at all times.
                             </p>
                         </div>
@@ -355,7 +355,7 @@ export const SignUpForm = () => {
                                 onChange={(e) => handleInputChange('agreement', e.target.checked)}
                                 className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                             />
-                            <label htmlFor="agreement" className="ml-2 text-sm text-gray-300">I agree to the terms above</label>
+                            <label htmlFor="agreement" className="ml-2 text-sm text-gray-100">I agree to the terms above</label>
                         </div>
                     </div>
 

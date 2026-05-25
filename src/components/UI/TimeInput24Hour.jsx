@@ -253,7 +253,7 @@ export const TimeInput24Hour = ({ value, onChange, id, className = '', step = 60
                 tabIndex={-1}
             >
                 <svg 
-                    className="w-4 h-4 text-gray-400 group-hover:text-purple-400 transition-colors" 
+                    className="w-4 h-4 text-gray-200 group-hover:text-purple-400 transition-colors" 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
@@ -292,7 +292,7 @@ export const TimeInput24Hour = ({ value, onChange, id, className = '', step = 60
                 tabIndex={-1}
             >
                 <svg 
-                    className="w-4 h-4 text-gray-400 group-hover:text-purple-400 transition-colors" 
+                    className="w-4 h-4 text-gray-200 group-hover:text-purple-400 transition-colors" 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"

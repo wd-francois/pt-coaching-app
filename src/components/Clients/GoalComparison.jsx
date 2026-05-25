@@ -71,7 +71,7 @@ export const GoalComparison = ({ measurements = [], goals = {} }) => {
                     onClick={() => setIsVisible(!isVisible)}
                     aria-label={isVisible ? 'Hide goal comparison' : 'Show goal comparison'}
                     aria-expanded={isVisible}
-                    className="text-gray-400 hover:text-white transition-colors p-1"
+                    className="text-gray-200 hover:text-white transition-colors p-1"
                 >
                     <svg 
                         className="w-5 h-5" 
@@ -93,17 +93,17 @@ export const GoalComparison = ({ measurements = [], goals = {} }) => {
             {isVisible && (
                 <div className="space-y-3">
                     {progressData.length === 0 ? (
-                        <p className="text-gray-400 text-sm">No goals set or measurements available for comparison.</p>
+                        <p className="text-gray-200 text-sm">No goals set or measurements available for comparison.</p>
                     ) : (
                         progressData.map((item, index) => (
                             <div key={index} className="space-y-2">
                                 <div className="flex items-center justify-between text-sm">
-                                    <span className="text-gray-300 font-medium">{item.label}</span>
+                                    <span className="text-gray-100 font-medium">{item.label}</span>
                                     <div className="flex items-center gap-2">
                                         <span className="text-white">
                                             {item.current} {item.unit}
                                         </span>
-                                        <span className="text-gray-400">→</span>
+                                        <span className="text-gray-200">→</span>
                                         <span className={`font-semibold ${item.isAchieved ? 'text-green-400' : 'text-purple-400'}`}>
                                             {item.goal} {item.unit}
                                         </span>
@@ -125,7 +125,7 @@ export const GoalComparison = ({ measurements = [], goals = {} }) => {
                                     />
                                 </div>
                                 {!item.isAchieved && (
-                                    <p className="text-xs text-gray-400">
+                                    <p className="text-xs text-gray-200">
                                         {item.difference.toFixed(1)} {item.unit} to go
                                     </p>
                                 )}

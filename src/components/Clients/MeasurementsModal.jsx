@@ -97,7 +97,7 @@ export const MeasurementsModal = ({ isOpen, onClose, client, onCreateMeasurement
             ) : (
                 <div className="space-y-4">
                     <div className="flex justify-between items-center">
-                        <p className="text-gray-400 text-sm">
+                        <p className="text-gray-200 text-sm">
                             Track and monitor client progress over time
                         </p>
                         <Button
@@ -115,7 +115,7 @@ export const MeasurementsModal = ({ isOpen, onClose, client, onCreateMeasurement
 
                     {loading ? (
                         <div className="text-center py-8">
-                            <p className="text-gray-400">Loading measurements...</p>
+                            <p className="text-gray-200">Loading measurements...</p>
                         </div>
                     ) : (
                         <MeasurementsList

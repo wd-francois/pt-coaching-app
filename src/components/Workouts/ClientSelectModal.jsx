@@ -633,13 +633,13 @@ export const ClientSelectModal = ({
                     size="md"
                 >
                     <div className="space-y-4">
-                        <p className="text-sm text-gray-400">
+                        <p className="text-sm text-gray-200">
                             Select clients to add to this group session. Clients already in the group are excluded.
                         </p>
 
                         {selectedClient?.groupClients && (
                             <div className="glass rounded-lg p-3">
-                                <p className="text-xs text-gray-400 mb-2">Current clients in group:</p>
+                                <p className="text-xs text-gray-200 mb-2">Current clients in group:</p>
                                 <div className="flex flex-wrap gap-2">
                                     {selectedClient.groupClients.map(c => (
                                         <span 
@@ -672,7 +672,7 @@ export const ClientSelectModal = ({
                             if (availableClients.length === 0) {
                                 return (
                                     <div className="text-center py-8">
-                                        <p className="text-gray-400">All clients are already in this group session.</p>
+                                        <p className="text-gray-200">All clients are already in this group session.</p>
                                     </div>
                                 );
                             }
@@ -680,7 +680,7 @@ export const ClientSelectModal = ({
                             if (filteredAvailableClients.length === 0) {
                                 return (
                                     <div className="text-center py-8">
-                                        <p className="text-gray-400">No available clients match your search.</p>
+                                        <p className="text-gray-200">No available clients match your search.</p>
                                     </div>
                                 );
                             }
@@ -717,7 +717,7 @@ export const ClientSelectModal = ({
                                                         <div className="flex-1">
                                                             <p className="font-semibold text-white">{client.name}</p>
                                                             {client.email && (
-                                                                <p className="text-sm text-gray-400">{client.email}</p>
+                                                                <p className="text-sm text-gray-200">{client.email}</p>
                                                             )}
                                                         </div>
                                                     </div>
@@ -756,11 +756,11 @@ export const ClientSelectModal = ({
             <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-3">
                     <div className="glass rounded-lg p-3">
-                        <p className="text-sm text-gray-400">Date</p>
+                        <p className="text-sm text-gray-200">Date</p>
                         <p className="text-white font-semibold">{formatDateDisplay(selectedDate)}</p>
                     </div>
                     <div className="glass rounded-lg p-3">
-                        <label htmlFor="session-time" className="block text-sm text-gray-400 mb-1">
+                        <label htmlFor="session-time" className="block text-sm text-gray-200 mb-1">
                             Session Time
                         </label>
                         <TimeInput24Hour
@@ -859,7 +859,7 @@ export const ClientSelectModal = ({
                     
                     return (
                         <div className="glass rounded-lg p-4">
-                            <p className="text-sm text-gray-400 mb-2">Existing workouts on this date:</p>
+                            <p className="text-sm text-gray-200 mb-2">Existing workouts on this date:</p>
                             <div className="space-y-2">
                                 {uniqueWorkouts.map(({ workout, groupWorkouts, isGroup }) => {
                                     let clientName = 'Unknown Client';
@@ -935,7 +935,7 @@ export const ClientSelectModal = ({
                                             }`}
                                         >
                                             <p className="font-semibold text-white">{clientName}</p>
-                                            <div className="flex items-center gap-2 text-sm text-gray-300">
+                                            <div className="flex items-center gap-2 text-sm text-gray-100">
                                                 <span>{totalExercises} exercise{totalExercises !== 1 ? 's' : ''}</span>
                                                 {workout.time && (
                                                     <>
@@ -959,7 +959,7 @@ export const ClientSelectModal = ({
                 })()}
 
                 <div>
-                    <p className="text-sm text-gray-400 mb-3">
+                    <p className="text-sm text-gray-200 mb-3">
                         {isGroupMode 
                             ? `Select multiple clients for group session (${selectedClients.length} selected):`
                             : existingWorkouts.length > 0 
@@ -980,14 +980,14 @@ export const ClientSelectModal = ({
 
                     {clients.length === 0 ? (
                         <div className="text-center py-8">
-                            <p className="text-gray-400 mb-4">No clients found. Add clients first to schedule workouts.</p>
+                            <p className="text-gray-200 mb-4">No clients found. Add clients first to schedule workouts.</p>
                             <Button onClick={handleClose} variant="secondary">
                                 Close
                             </Button>
                         </div>
                     ) : filteredClients.length === 0 ? (
                         <div className="text-center py-8">
-                            <p className="text-gray-400">No clients match your search.</p>
+                            <p className="text-gray-200">No clients match your search.</p>
                         </div>
                     ) : (
                         <>
@@ -1031,7 +1031,7 @@ export const ClientSelectModal = ({
                                                 <div className="flex-1">
                                                     <p className="font-semibold text-white">{client.name}</p>
                                                     {client.email && (
-                                                        <p className="text-sm text-gray-400">{client.email}</p>
+                                                        <p className="text-sm text-gray-200">{client.email}</p>
                                                     )}
                                                 </div>
                                             </div>

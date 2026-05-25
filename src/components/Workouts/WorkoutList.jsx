@@ -102,10 +102,10 @@ export const WorkoutList = ({
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-bold gradient-text">Workout Library</h1>
-                    <p className="text-gray-400 mt-1">
+                    <p className="text-gray-200 mt-1">
                         {workoutTemplates.length} saved workout templates
                     </p>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-sm text-gray-300 mt-1">
                         Save workouts from the Workout Builder to build your library. Scheduled workouts are managed in the Calendar.
                     </p>
                 </div>
@@ -136,14 +136,14 @@ export const WorkoutList = ({
             {filteredTemplates.length === 0 ? (
                 <div className="glass rounded-2xl p-12 text-center">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-white/5 flex items-center justify-center">
-                        <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-8 h-8 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                         </svg>
                     </div>
                     <h3 className="text-xl font-semibold mb-2">
                         {searchTerm ? 'No templates found' : 'No workout templates yet'}
                     </h3>
-                    <p className="text-gray-400 mb-6">
+                    <p className="text-gray-200 mb-6">
                         {searchTerm ? 'Try a different search term' : 'Save workouts from the Workout Builder to build your library'}
                     </p>
                 </div>
@@ -166,7 +166,7 @@ export const WorkoutList = ({
 
                             {/* Exercise Preview */}
                             <div>
-                                <p className="text-xs text-gray-400 mb-2">
+                                <p className="text-xs text-gray-200 mb-2">
                                     {template.exercises?.length || 0} exercises
                                 </p>
                                 <div className="flex flex-wrap gap-1">
@@ -179,14 +179,14 @@ export const WorkoutList = ({
                                         </span>
                                     ))}
                                     {template.exercises?.length > 3 && (
-                                        <span className="text-xs text-gray-400">
+                                        <span className="text-xs text-gray-200">
                                             +{template.exercises.length - 3} more
                                         </span>
                                     )}
                                 </div>
                             </div>
 
-                            <p className="text-xs text-gray-500">
+                            <p className="text-xs text-gray-300">
                                 Created {formatDate(new Date(template.createdAt))}
                             </p>
 

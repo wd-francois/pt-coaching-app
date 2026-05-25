@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
+/* Presbyopia-friendly: 18px base (112.5% of browser default 16px).
+   All rem-based Tailwind sizes scale up proportionally. */
+html {
+  font-size: 112.5%;
+}
+
 * {
   border-color: rgb(255 255 255 / 0.2);
 }
@@ -10,12 +16,29 @@ body {
   color: white;
   min-height: 100vh;
   font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
 }
 
 html,
 body,
 #root {
   height: 100%;
+}
+
+/* Larger, more readable form controls */
+input,
+select,
+textarea {
+  min-height: 48px;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-width: 2px !important;
+  border-color: rgb(255 255 255 / 0.3) !important;
+}
+
+select {
+  min-height: 48px;
 }
 
 .glass {
@@ -51,11 +74,11 @@ body,
   transform: translateX(0);
 }
 
-/* Focus-visible styles for accessibility */
+/* Focus-visible styles — thicker ring for presbyopia */
 *:focus-visible {
-  outline: 2px solid rgb(139 92 246);
-  outline-offset: 2px;
-  border-radius: 4px;
+  outline: 3px solid rgb(192 132 252);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
 button:focus-visible,
@@ -63,8 +86,8 @@ a:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid rgb(139 92 246);
-  outline-offset: 2px;
+  outline: 3px solid rgb(192 132 252);
+  outline-offset: 3px;
 }
 
 /* Hide spinner arrows in number inputs */

@@ -128,8 +128,8 @@ function App() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-white text-lg">Loading...</p>
+          <div className="w-20 h-20 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
+          <p className="text-white text-2xl font-semibold">Loading...</p>
         </div>
       </div>
     );
@@ -152,8 +152,8 @@ function App() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
                 <div className="flex-1">
-                  <h3 className="text-sm font-semibold text-yellow-400">Data Recovery Available</h3>
-                  <p className="text-xs text-gray-300 mt-0.5">
+                  <h3 className="text-base font-semibold text-yellow-400">Data Recovery Available</h3>
+                  <p className="text-sm text-gray-200 mt-1">
                     Found backups: {backupStatus.summary.clients} clients, {backupStatus.summary.exercises} exercises, {backupStatus.summary.workouts} workouts, {backupStatus.summary.measurements} measurements
                   </p>
                 </div>
@@ -162,13 +162,13 @@ function App() {
                 <button
                   onClick={handleRecoverData}
                   disabled={recovering}
-                  className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-medium text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-5 py-2.5 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-semibold text-base transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
                 >
                   {recovering ? 'Recovering...' : 'Recover Data'}
                 </button>
                 <button
                   onClick={() => setShowRecoveryBanner(false)}
-                  className="p-2 text-gray-400 hover:text-white transition-colors"
+                  className="p-2 text-gray-200 hover:text-white transition-colors"
                   aria-label="Dismiss recovery banner"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -191,8 +191,8 @@ function App() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <div className="flex-1">
-                  <h3 className="text-sm font-semibold text-blue-400">No Data Found</h3>
-                  <p className="text-xs text-gray-300 mt-0.5">
+                  <h3 className="text-base font-semibold text-blue-400">No Data Found</h3>
+                  <p className="text-sm text-gray-200 mt-1">
                     Data is stored per browser. If you have data in another browser, export it there and import it here using the Admin page.
                   </p>
                 </div>
@@ -204,7 +204,7 @@ function App() {
                     setShowNoDataNotice(false);
                     sessionStorage.setItem('dismissedNoDataNotice', 'true');
                   }}
-                  className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium text-sm transition-colors"
+                  className="px-5 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold text-base transition-colors min-h-[44px]"
                 >
                   Go to Admin
                 </button>
@@ -213,7 +213,7 @@ function App() {
                     setShowNoDataNotice(false);
                     sessionStorage.setItem('dismissedNoDataNotice', 'true');
                   }}
-                  className="p-2 text-gray-400 hover:text-white transition-colors"
+                  className="p-2 text-gray-200 hover:text-white transition-colors"
                   aria-label="Dismiss notice"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -226,91 +226,91 @@ function App() {
         </div>
       )}
       {/* Sidebar Navigation */}
-      <nav className="lg:w-64 glass border-r border-white/10">
-        <div className="p-6">
-          <h1 className="text-2xl font-bold gradient-text mb-8">PT Coach</h1>
+      <nav className="lg:w-72 glass border-r border-white/10">
+        <div className="p-7">
+          <h1 className="text-3xl font-bold gradient-text mb-9">PT Coach</h1>
 
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             <button
               onClick={() => setActiveView('calendar')}
               aria-label="Navigate to Calendar view"
               aria-current={activeView === 'calendar' ? 'page' : undefined}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${activeView === 'calendar'
+              className={`w-full flex items-center gap-4 px-5 py-4 rounded-xl transition-all text-lg font-semibold ${activeView === 'calendar'
                   ? 'bg-purple-600 text-white'
-                  : 'text-gray-300 hover:bg-white/10'
+                  : 'text-gray-200 hover:bg-white/10'
                 }`}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <svg className="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
-              <span className="font-medium">Calendar</span>
+              <span>Calendar</span>
             </button>
 
             <button
               onClick={() => setActiveView('clients')}
               aria-label={`Navigate to Clients view, ${clients.length} clients`}
               aria-current={activeView === 'clients' ? 'page' : undefined}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${activeView === 'clients'
+              className={`w-full flex items-center gap-4 px-5 py-4 rounded-xl transition-all text-lg font-semibold ${activeView === 'clients'
                   ? 'bg-purple-600 text-white'
-                  : 'text-gray-300 hover:bg-white/10'
+                  : 'text-gray-200 hover:bg-white/10'
                 }`}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <svg className="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
-              <span className="font-medium">Clients</span>
+              <span>Clients</span>
             </button>
 
             <button
               onClick={() => setActiveView('exercises')}
               aria-label={`Navigate to Exercises view, ${exercises.length} exercises`}
               aria-current={activeView === 'exercises' ? 'page' : undefined}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${activeView === 'exercises'
+              className={`w-full flex items-center gap-4 px-5 py-4 rounded-xl transition-all text-lg font-semibold ${activeView === 'exercises'
                   ? 'bg-purple-600 text-white'
-                  : 'text-gray-300 hover:bg-white/10'
+                  : 'text-gray-200 hover:bg-white/10'
                 }`}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <svg className="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
               </svg>
-              <span className="font-medium">Exercises</span>
+              <span>Exercises</span>
             </button>
 
             <button
               onClick={() => setActiveView('workoutLibrary')}
               aria-label={`Navigate to Workouts view, ${workoutTemplates.length} workout templates`}
               aria-current={activeView === 'workoutLibrary' ? 'page' : undefined}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${activeView === 'workoutLibrary'
+              className={`w-full flex items-center gap-4 px-5 py-4 rounded-xl transition-all text-lg font-semibold ${activeView === 'workoutLibrary'
                   ? 'bg-purple-600 text-white'
-                  : 'text-gray-300 hover:bg-white/10'
+                  : 'text-gray-200 hover:bg-white/10'
                 }`}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <svg className="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
-              <span className="font-medium">Workouts</span>
+              <span>Workouts</span>
             </button>
 
             <button
               onClick={() => setActiveView('admin')}
               aria-label="Navigate to Admin view"
               aria-current={activeView === 'admin' ? 'page' : undefined}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${activeView === 'admin'
+              className={`w-full flex items-center gap-4 px-5 py-4 rounded-xl transition-all text-lg font-semibold ${activeView === 'admin'
                   ? 'bg-purple-600 text-white'
-                  : 'text-gray-300 hover:bg-white/10'
+                  : 'text-gray-200 hover:bg-white/10'
                 }`}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <svg className="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
               </svg>
-              <span className="font-medium">Admin</span>
+              <span>Admin</span>
             </button>
           </div>
         </div>
       </nav>
 
       {/* Main Content */}
-      <main className={`flex-1 p-6 lg:p-8 overflow-auto ${showRecoveryBanner ? 'pt-20' : ''}`}>
+      <main className={`flex-1 p-7 lg:p-10 overflow-auto ${showRecoveryBanner ? 'pt-20' : ''}`}>
         {activeView === 'calendar' && (
           <Calendar
             workouts={workouts}

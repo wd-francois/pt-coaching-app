@@ -563,24 +563,24 @@ export const ClientSessionStats = ({ clients, workouts, exercises = [] }) => {
                     <div className="flex items-start justify-between">
                         <div className="flex-1">
                             <h3 className="text-lg font-semibold text-yellow-400 mb-2">⚠️ Data Recovery Available</h3>
-                            <p className="text-sm text-gray-300 mb-3">
+                            <p className="text-sm text-gray-100 mb-3">
                                 Backups found in localStorage:
                             </p>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
                                 <div>
-                                    <span className="text-gray-400">Clients:</span>
+                                    <span className="text-gray-200">Clients:</span>
                                     <span className="text-white font-semibold ml-2">{backupStatus.summary.clients}</span>
                                 </div>
                                 <div>
-                                    <span className="text-gray-400">Exercises:</span>
+                                    <span className="text-gray-200">Exercises:</span>
                                     <span className="text-white font-semibold ml-2">{backupStatus.summary.exercises}</span>
                                 </div>
                                 <div>
-                                    <span className="text-gray-400">Workouts:</span>
+                                    <span className="text-gray-200">Workouts:</span>
                                     <span className="text-white font-semibold ml-2">{backupStatus.summary.workouts}</span>
                                 </div>
                                 <div>
-                                    <span className="text-gray-400">Measurements:</span>
+                                    <span className="text-gray-200">Measurements:</span>
                                     <span className="text-white font-semibold ml-2">{backupStatus.summary.measurements}</span>
                                 </div>
                             </div>
@@ -605,7 +605,7 @@ export const ClientSessionStats = ({ clients, workouts, exercises = [] }) => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         <h3 className="text-xl font-semibold text-blue-400 mb-2">No Data Found</h3>
-                        <p className="text-gray-300 mb-4 max-w-2xl mx-auto">
+                        <p className="text-gray-100 mb-4 max-w-2xl mx-auto">
                             Your data is stored locally in each browser. If you have data in another browser, you need to:
                         </p>
                         <div className="space-y-3 max-w-md mx-auto text-left">
@@ -613,14 +613,14 @@ export const ClientSessionStats = ({ clients, workouts, exercises = [] }) => {
                                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-semibold">1</span>
                                 <div>
                                     <p className="text-white font-medium">Export from the original browser</p>
-                                    <p className="text-sm text-gray-400">Click "Export All Data" in that browser to download a backup file</p>
+                                    <p className="text-sm text-gray-200">Click "Export All Data" in that browser to download a backup file</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
                                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-semibold">2</span>
                                 <div>
                                     <p className="text-white font-medium">Import in this browser</p>
-                                    <p className="text-sm text-gray-400">Click "Import Data" below and select the exported file</p>
+                                    <p className="text-sm text-gray-200">Click "Import Data" below and select the exported file</p>
                                 </div>
                             </div>
                         </div>
@@ -665,7 +665,7 @@ export const ClientSessionStats = ({ clients, workouts, exercises = [] }) => {
                             className={`px-4 py-2 rounded-lg font-medium transition-all capitalize ${
                                 timeframe === tf
                                     ? 'bg-purple-600 text-white'
-                                    : 'bg-white/5 text-gray-300 hover:bg-white/10'
+                                    : 'bg-white/5 text-gray-100 hover:bg-white/10'
                             }`}
                         >
                             {tf === 'all'
@@ -839,7 +839,7 @@ export const ClientSessionStats = ({ clients, workouts, exercises = [] }) => {
                                                 <div className="text-xs text-hc-textSecondary">total</div>
                                             </div>
                                             <svg
-                                                className={`w-5 h-5 text-gray-400 transition-transform ${selectedClient === stat.client.id ? 'rotate-180' : ''}`}
+                                                className={`w-5 h-5 text-gray-200 transition-transform ${selectedClient === stat.client.id ? 'rotate-180' : ''}`}
                                                 fill="none"
                                                 stroke="currentColor"
                                                 viewBox="0 0 24 24"
@@ -933,14 +933,14 @@ export const ClientSessionStats = ({ clients, workouts, exercises = [] }) => {
                                                                                         </span>
                                                                                     ))}
                                                                                     {workout.exercises?.length > 3 && (
-                                                                                        <span className="text-xs text-gray-400">
+                                                                                        <span className="text-xs text-gray-200">
                                                                                             +{workout.exercises.length - 3} more
                                                                                         </span>
                                                                                     )}
                                                                                 </div>
                                                                             </div>
                                                                             <svg
-                                                                                className={`w-4 h-4 text-gray-400 transition-transform flex-shrink-0 ml-2 ${isExpanded ? 'rotate-180' : ''}`}
+                                                                                className={`w-4 h-4 text-gray-200 transition-transform flex-shrink-0 ml-2 ${isExpanded ? 'rotate-180' : ''}`}
                                                                                 fill="none"
                                                                                 stroke="currentColor"
                                                                                 viewBox="0 0 24 24"
@@ -963,7 +963,7 @@ export const ClientSessionStats = ({ clients, workouts, exercises = [] }) => {
                                                                                             {/* Sets Table */}
                                                                                             {sets.length > 0 ? (
                                                                                                 <div className="space-y-1">
-                                                                                                    <div className="grid grid-cols-12 gap-2 text-xs text-gray-400 pb-1 border-b border-white/10">
+                                                                                                    <div className="grid grid-cols-12 gap-2 text-xs text-gray-200 pb-1 border-b border-white/10">
                                                                                                         <div className="col-span-1">Set</div>
                                                                                                         <div className="col-span-3">Reps</div>
                                                                                                         <div className="col-span-4">Load</div>
@@ -971,22 +971,22 @@ export const ClientSessionStats = ({ clients, workouts, exercises = [] }) => {
                                                                                                     </div>
                                                                                                     {sets.map((set, setIdx) => (
                                                                                                         <div key={setIdx} className="grid grid-cols-12 gap-2 text-xs text-white">
-                                                                                                            <div className="col-span-1 text-gray-400">{setIdx + 1}</div>
+                                                                                                            <div className="col-span-1 text-gray-200">{setIdx + 1}</div>
                                                                                                             <div className="col-span-3">{set.reps || '-'}</div>
                                                                                                             <div className="col-span-4">{set.load || '-'}</div>
-                                                                                                            <div className="col-span-4 text-gray-300">{set.notes || '-'}</div>
+                                                                                                            <div className="col-span-4 text-gray-100">{set.notes || '-'}</div>
                                                                                                         </div>
                                                                                                     ))}
                                                                                                 </div>
                                                                                             ) : (
-                                                                                                <p className="text-xs text-gray-400">No sets recorded</p>
+                                                                                                <p className="text-xs text-gray-200">No sets recorded</p>
                                                                                             )}
                                                                                             
                                                                                             {/* Exercise Notes */}
                                                                                             {exercise.notes && (
                                                                                                 <div className="mt-2 pt-2 border-t border-white/10">
-                                                                                                    <p className="text-xs text-gray-300">
-                                                                                                        <span className="text-gray-400">Notes: </span>
+                                                                                                    <p className="text-xs text-gray-100">
+                                                                                                        <span className="text-gray-200">Notes: </span>
                                                                                                         {exercise.notes}
                                                                                                     </p>
                                                                                                 </div>

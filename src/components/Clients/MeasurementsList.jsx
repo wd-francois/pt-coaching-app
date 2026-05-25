@@ -31,8 +31,8 @@ export const MeasurementsList = ({ measurements, onEdit, onDelete, settings = { 
   if (!measurements || measurements.length === 0) {
     return (
       <div className="text-center py-8">
-        <p className="text-gray-400">No measurements recorded yet.</p>
-        <p className="text-sm text-gray-500 mt-2">Add your first measurement to start tracking progress.</p>
+        <p className="text-gray-200">No measurements recorded yet.</p>
+        <p className="text-sm text-gray-300 mt-2">Add your first measurement to start tracking progress.</p>
       </div>
     );
   }
@@ -86,7 +86,7 @@ export const MeasurementsList = ({ measurements, onEdit, onDelete, settings = { 
                 {((measurement.weight != null && measurement.weight !== '') || hasGirth || hasSkinfolds || measurement.notes) && (
                   <button
                     onClick={() => toggleExpand(measurement.id)}
-                    className="mt-2 text-sm text-gray-400 hover:text-purple-400 transition-colors flex items-center gap-1"
+                    className="mt-2 text-sm text-gray-200 hover:text-purple-400 transition-colors flex items-center gap-1"
                   >
                     {isExpanded ? 'Show Less' : 'Show Details'}
                     <svg
@@ -132,7 +132,7 @@ export const MeasurementsList = ({ measurements, onEdit, onDelete, settings = { 
               <div className="mt-4 pt-4 border-t border-gray-700 space-y-4">
                 {measurement.weight != null && measurement.weight !== '' && (
                   <div>
-                    <h5 className="text-sm font-medium text-gray-300 mb-2">Weight</h5>
+                    <h5 className="text-sm font-medium text-gray-100 mb-2">Weight</h5>
                     <p className="text-sm text-white font-medium">
                       {measurement.weight} {settings.weightUnit}
                     </p>
@@ -140,53 +140,53 @@ export const MeasurementsList = ({ measurements, onEdit, onDelete, settings = { 
                 )}
                 {hasGirth && (
                   <div>
-                    <h5 className="text-sm font-medium text-gray-300 mb-2">Girth Measurements</h5>
+                    <h5 className="text-sm font-medium text-gray-100 mb-2">Girth Measurements</h5>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
                       {measurement.neck && (
                         <div>
-                          <span className="text-gray-400">Neck:</span>
+                          <span className="text-gray-200">Neck:</span>
                           <span className="text-white ml-2">{renderMeasurementValue(measurement.neck, settings.lengthUnit)}</span>
                         </div>
                       )}
                       {measurement.shoulders && (
                         <div>
-                          <span className="text-gray-400">Shoulders:</span>
+                          <span className="text-gray-200">Shoulders:</span>
                           <span className="text-white ml-2">{renderMeasurementValue(measurement.shoulders, settings.lengthUnit)}</span>
                         </div>
                       )}
                       {measurement.chest && (
                         <div>
-                          <span className="text-gray-400">Chest:</span>
+                          <span className="text-gray-200">Chest:</span>
                           <span className="text-white ml-2">{renderMeasurementValue(measurement.chest, settings.lengthUnit)}</span>
                         </div>
                       )}
                       {measurement.waist && (
                         <div>
-                          <span className="text-gray-400">Waist:</span>
+                          <span className="text-gray-200">Waist:</span>
                           <span className="text-white ml-2">{renderMeasurementValue(measurement.waist, settings.lengthUnit)}</span>
                         </div>
                       )}
                       {measurement.hips && (
                         <div>
-                          <span className="text-gray-400">Hips:</span>
+                          <span className="text-gray-200">Hips:</span>
                           <span className="text-white ml-2">{renderMeasurementValue(measurement.hips, settings.lengthUnit)}</span>
                         </div>
                       )}
                       {measurement.thigh != null && measurement.thigh !== '' && (
                         <div>
-                          <span className="text-gray-400">Thigh (Upper):</span>
+                          <span className="text-gray-200">Thigh (Upper):</span>
                           <span className="text-white ml-2">{renderMeasurementValue(measurement.thigh, settings.lengthUnit)}</span>
                         </div>
                       )}
                       {measurement.thighLower != null && measurement.thighLower !== '' && (
                         <div>
-                          <span className="text-gray-400">Thigh (Lower):</span>
+                          <span className="text-gray-200">Thigh (Lower):</span>
                           <span className="text-white ml-2">{renderMeasurementValue(measurement.thighLower, settings.lengthUnit)}</span>
                         </div>
                       )}
                       {measurement.arm && (
                         <div>
-                          <span className="text-gray-400">Arm:</span>
+                          <span className="text-gray-200">Arm:</span>
                           <span className="text-white ml-2">{renderMeasurementValue(measurement.arm, settings.lengthUnit)}</span>
                         </div>
                       )}
@@ -196,7 +196,7 @@ export const MeasurementsList = ({ measurements, onEdit, onDelete, settings = { 
 
                 {hasSkinfolds && (
                   <div>
-                    <h5 className="text-sm font-medium text-gray-300 mb-2">Skinfolds</h5>
+                    <h5 className="text-sm font-medium text-gray-100 mb-2">Skinfolds</h5>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
                       {SKINFOLD_ROWS.map(({ site, label, legacyKey }) => {
                         const line = formatSkinfoldReadingsLine(
@@ -206,7 +206,7 @@ export const MeasurementsList = ({ measurements, onEdit, onDelete, settings = { 
                         if (!line) return null;
                         return (
                           <div key={site}>
-                            <span className="text-gray-400">{label}:</span>
+                            <span className="text-gray-200">{label}:</span>
                             <span className="text-white ml-2">
                               {line} mm
                             </span>
@@ -219,8 +219,8 @@ export const MeasurementsList = ({ measurements, onEdit, onDelete, settings = { 
 
                 {measurement.notes && (
                   <div>
-                    <h5 className="text-sm font-medium text-gray-300 mb-2">Notes</h5>
-                    <p className="text-sm text-gray-300 whitespace-pre-wrap">{measurement.notes}</p>
+                    <h5 className="text-sm font-medium text-gray-100 mb-2">Notes</h5>
+                    <p className="text-sm text-gray-100 whitespace-pre-wrap">{measurement.notes}</p>
                   </div>
                 )}
               </div>

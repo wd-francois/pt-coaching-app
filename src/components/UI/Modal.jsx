@@ -40,21 +40,21 @@ export const Modal = ({ isOpen, onClose, title, children, size = 'md' }) => {
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-white/10">
-                    <h2 className="text-2xl font-bold gradient-text">{title}</h2>
+                <div className="flex items-center justify-between px-8 py-6 border-b border-white/10">
+                    <h2 className="text-3xl font-bold gradient-text">{title}</h2>
                     <button
                         onClick={onClose}
-                        className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+                        className="p-3 rounded-xl hover:bg-white/10 transition-colors min-h-[48px] min-w-[48px] flex items-center justify-center"
                         aria-label="Close modal"
                     >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
 
                 {/* Content */}
-                <div className="p-6 max-h-[70vh] overflow-y-auto">
+                <div className="px-8 py-7 max-h-[70vh] overflow-y-auto">
                     {children}
                 </div>
             </div>

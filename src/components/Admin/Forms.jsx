@@ -25,7 +25,7 @@ export const Forms = () => {
                             className={`px-4 py-2 rounded-lg transition-all ${
                                 activeSection === 'submissions'
                                     ? 'bg-purple-600 text-white'
-                                    : 'text-gray-300 hover:bg-white/10'
+                                    : 'text-gray-100 hover:bg-white/10'
                             }`}
                         >
                             View Submissions
@@ -42,7 +42,7 @@ export const Forms = () => {
             {/* Empty state when no section is selected */}
             {!activeSection && (
                 <div className="glass rounded-2xl p-12 border border-white/10 text-center">
-                    <p className="text-gray-400 text-lg">Select a section to view</p>
+                    <p className="text-gray-200 text-lg">Select a section to view</p>
                 </div>
             )}
         </div>

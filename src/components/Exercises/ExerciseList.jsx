@@ -511,7 +511,7 @@ export const ExerciseList = ({ exercises, onAdd, onUpdate, onDelete, onImportBat
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-bold gradient-text">Exercise Database</h1>
-                    <p className="text-gray-400 mt-1">
+                    <p className="text-gray-200 mt-1">
                         {exercises.length} total exercises
                         {filteredExercises.length !== exercises.length && (
                             <span className="ml-2 text-purple-400">
@@ -634,14 +634,14 @@ export const ExerciseList = ({ exercises, onAdd, onUpdate, onDelete, onImportBat
                             {importResult.message}
                         </p>
                         {importResult.success && importResult.count > 0 && (
-                            <p className="text-sm text-gray-400 mt-1">
+                            <p className="text-sm text-gray-200 mt-1">
                                 Your exercise library now has {exercises.length} total exercises.
                             </p>
                         )}
                     </div>
                     <button
                         onClick={() => setImportResult(null)}
-                        className="text-gray-400 hover:text-white transition-colors"
+                        className="text-gray-200 hover:text-white transition-colors"
                     >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -661,7 +661,7 @@ export const ExerciseList = ({ exercises, onAdd, onUpdate, onDelete, onImportBat
                 />
 
                 <div>
-                    <p className="text-xs text-gray-400 mb-2">Filters</p>
+                    <p className="text-xs text-gray-200 mb-2">Filters</p>
                     <div className="flex gap-2 flex-wrap">
                         {categories.map(cat => (
                             <button
@@ -669,7 +669,7 @@ export const ExerciseList = ({ exercises, onAdd, onUpdate, onDelete, onImportBat
                                 onClick={() => setFilterCategory(cat)}
                                 className={`px-3 py-1 rounded-full text-sm transition-all ${filterCategory === cat
                                         ? 'bg-purple-600 text-white'
-                                        : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                                        : 'bg-white/10 text-gray-100 hover:bg-white/20'
                                     }`}
                             >
                                 {cat}
@@ -690,7 +690,7 @@ export const ExerciseList = ({ exercises, onAdd, onUpdate, onDelete, onImportBat
                                     className={`px-3 py-1 rounded-full text-sm transition-all ${
                                         isSelected
                                             ? 'bg-blue-600 text-white'
-                                            : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                                            : 'bg-white/10 text-gray-100 hover:bg-white/20'
                                     }`}
                                 >
                                     {tag}
@@ -713,7 +713,7 @@ export const ExerciseList = ({ exercises, onAdd, onUpdate, onDelete, onImportBat
             {filteredExercises.length === 0 ? (
                 <div className="glass rounded-2xl p-12 text-center">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-white/5 flex items-center justify-center">
-                        <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-8 h-8 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                         </svg>
                     </div>
@@ -724,7 +724,7 @@ export const ExerciseList = ({ exercises, onAdd, onUpdate, onDelete, onImportBat
                                 ? 'No exercises yet' 
                                 : 'No exercises match filters'}
                     </h3>
-                    <p className="text-gray-400 mb-6">
+                    <p className="text-gray-200 mb-6">
                         {searchTerm || filterCategory !== 'All' || selectedEquipmentTags.length > 0 
                             ? `Try adjusting your filters. You have ${exercises.length} total exercise${exercises.length !== 1 ? 's' : ''} in the database.` 
                             : exercises.length === 0
@@ -771,7 +771,7 @@ export const ExerciseList = ({ exercises, onAdd, onUpdate, onDelete, onImportBat
                             </div>
 
                             {exercise.description && (
-                                <p className="text-sm text-gray-300 line-clamp-3 flex-1">{exercise.description}</p>
+                                <p className="text-sm text-gray-100 line-clamp-3 flex-1">{exercise.description}</p>
                             )}
 
                             {exercise.videoUrl && (
@@ -841,7 +841,7 @@ export const ExerciseList = ({ exercises, onAdd, onUpdate, onDelete, onImportBat
                             className={`px-4 py-2 rounded-lg transition-all ${
                                 importMethod === 'file'
                                     ? 'bg-purple-600 text-white'
-                                    : 'text-gray-300 hover:bg-white/10'
+                                    : 'text-gray-100 hover:bg-white/10'
                             }`}
                         >
                             File Upload
@@ -851,7 +851,7 @@ export const ExerciseList = ({ exercises, onAdd, onUpdate, onDelete, onImportBat
                             className={`px-4 py-2 rounded-lg transition-all ${
                                 importMethod === 'paste'
                                     ? 'bg-purple-600 text-white'
-                                    : 'text-gray-300 hover:bg-white/10'
+                                    : 'text-gray-100 hover:bg-white/10'
                             }`}
                         >
                             Paste CSV/TSV
@@ -861,7 +861,7 @@ export const ExerciseList = ({ exercises, onAdd, onUpdate, onDelete, onImportBat
                             className={`px-4 py-2 rounded-lg transition-all ${
                                 importMethod === 'json'
                                     ? 'bg-purple-600 text-white'
-                                    : 'text-gray-300 hover:bg-white/10'
+                                    : 'text-gray-100 hover:bg-white/10'
                             }`}
                         >
                             JSON
@@ -872,7 +872,7 @@ export const ExerciseList = ({ exercises, onAdd, onUpdate, onDelete, onImportBat
                     {importMethod === 'file' && (
                         <div className="space-y-4">
                             <div>
-                                <p className="text-sm text-gray-400 mb-3">
+                                <p className="text-sm text-gray-200 mb-3">
                                     Upload an Excel (.xlsx, .xls), ODS (.ods), or CSV file with columns: <strong>Name, Category, Equipment, Video Demonstration</strong>
                                 </p>
                     <input
@@ -896,7 +896,7 @@ export const ExerciseList = ({ exercises, onAdd, onUpdate, onDelete, onImportBat
                                     Choose File
                                 </Button>
                             </div>
-                            <div className="glass rounded-lg p-4 text-sm text-gray-300">
+                            <div className="glass rounded-lg p-4 text-sm text-gray-100">
                                 <p className="font-semibold mb-2">Example format:</p>
                                 <pre className="text-xs bg-black/30 p-3 rounded overflow-x-auto">
 {`Name,Category,Equipment,Video Demonstration
@@ -931,7 +931,7 @@ Plank,Core,Bodyweight,https://youtube.com/...`}
                             >
                                 Import from Text
                             </Button>
-                            <div className="glass rounded-lg p-4 text-sm text-gray-300">
+                            <div className="glass rounded-lg p-4 text-sm text-gray-100">
                                 <p className="font-semibold mb-2">Format:</p>
                                 <p className="text-xs">First row should be headers: <strong>Name, Category, Equipment, Video Demonstration</strong></p>
                                 <p className="text-xs mt-1">Each subsequent row is an exercise. Equipment can be comma-separated. Empty cells are allowed.</p>
@@ -962,7 +962,7 @@ Plank,Core,Bodyweight,https://youtube.com/...`}
                             >
                                 Import from JSON
                             </Button>
-                            <div className="glass rounded-lg p-4 text-sm text-gray-300">
+                            <div className="glass rounded-lg p-4 text-sm text-gray-100">
                                 <p className="font-semibold mb-2">JSON Format:</p>
                                 <pre className="text-xs bg-black/30 p-3 rounded overflow-x-auto">
 {`[

@@ -128,7 +128,7 @@ export const SignUpFormStandalone = () => {
                 {/* Close Button (X) - Top Right */}
                 <button
                     onClick={handleBack}
-                    className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-all z-10"
+                    className="absolute top-4 right-4 p-2 text-gray-200 hover:text-white hover:bg-white/10 rounded-lg transition-all z-10"
                     title="Close form"
                     aria-label="Close form"
                 >
@@ -141,7 +141,7 @@ export const SignUpFormStandalone = () => {
                 <div className="mb-6">
                     <button
                         onClick={handleBack}
-                        className="flex items-center gap-2 px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition-all group"
+                        className="flex items-center gap-2 px-4 py-2 text-gray-100 hover:text-white hover:bg-white/10 rounded-lg transition-all group"
                         title="Go back to Forms"
                     >
                         <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -156,7 +156,7 @@ export const SignUpFormStandalone = () => {
                     <h1 className="text-4xl sm:text-5xl font-bold text-white mb-3">
                         Exercise Pre-Screening Questionnaire
                     </h1>
-                    <p className="text-lg text-gray-300">
+                    <p className="text-lg text-gray-100">
                         Please complete this form to help us understand your fitness needs and medical history
                     </p>
                 </div>
@@ -256,7 +256,7 @@ export const SignUpFormStandalone = () => {
                         {/* Medical Conditions */}
                         <div className="space-y-5">
                             <h2 className="text-2xl font-bold text-white border-b-2 border-purple-500 pb-3">Medical Conditions</h2>
-                            <p className="text-sm text-gray-300">Please check all that apply:</p>
+                            <p className="text-sm text-gray-100">Please check all that apply:</p>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {Object.entries({
                                     heartCondition: 'Heart Condition',
@@ -310,7 +310,7 @@ export const SignUpFormStandalone = () => {
                                     className="w-full px-5 py-3 bg-white/5 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-gray-400 transition-all"
                                     placeholder="Enter a number between 1 and 10"
                                 />
-                                <p className="mt-2 text-sm text-gray-400">1 being very sedentary, 10 being extremely active</p>
+                                <p className="mt-2 text-sm text-gray-200">1 being very sedentary, 10 being extremely active</p>
                             </div>
                             <div>
                                 <label htmlFor="currentActivities" className="block text-sm font-semibold text-gray-200 mb-2">Current Physical Activities</label>
@@ -391,7 +391,7 @@ export const SignUpFormStandalone = () => {
                         <div className="space-y-5">
                             <h2 className="text-2xl font-bold text-white border-b-2 border-purple-500 pb-3">Agreement</h2>
                             <div className="bg-white/5 rounded-xl p-5 border border-white/10">
-                                <p className="text-sm text-gray-300 leading-relaxed">
+                                <p className="text-sm text-gray-100 leading-relaxed">
                                     I confirm that all information provided is accurate to the best of my knowledge. I understand that I should inform my trainer of any changes to my medical condition and complete a new questionnaire if necessary. I acknowledge that participating in physical activity carries inherent risks, and I accept responsibility for these risks. I understand that Fusion Strength & Conditioning will exercise due care at all times.
                                 </p>
                             </div>
@@ -469,7 +469,7 @@ export const SignUpFormStandalone = () => {
                         </svg>
                     </div>
                     <h3 className="text-xl font-semibold text-white mb-2">Error</h3>
-                    <p className="text-gray-300 mb-6">{errorMessage}</p>
+                    <p className="text-gray-100 mb-6">{errorMessage}</p>
                     <button
                         onClick={() => setShowErrorModal(false)}
                         className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors"
