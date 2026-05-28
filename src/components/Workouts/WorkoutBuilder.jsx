@@ -1405,40 +1405,11 @@ export const WorkoutBuilder = ({
                                                         </div>
                                                         <div className="col-span-4">
                                                             <input
-                                                                type="number"
-                                                                min="1"
-                                                                value={set.reps === '' || set.reps === null || set.reps === undefined ? '' : (typeof set.reps === 'number' ? set.reps : parseInt(set.reps, 10) || '')}
-                                                                onChange={(e) => {
-                                                                    const value = e.target.value;
-                                                                    // Handle empty string - store as empty string for consistency
-                                                                    if (value === '' || value === null || value === undefined) {
-                                                                        updateSet(exerciseIndex, setIndex, 'reps', '');
-                                                                    } else {
-                                                                        // Parse as integer
-                                                                        const numValue = parseInt(value, 10);
-                                                                        if (!isNaN(numValue) && numValue >= 0) {
-                                                                            updateSet(exerciseIndex, setIndex, 'reps', numValue);
-                                                                        } else {
-                                                                            // Invalid input, set to empty
-                                                                            updateSet(exerciseIndex, setIndex, 'reps', '');
-                                                                        }
-                                                                    }
-                                                                }}
-                                                                onBlur={(e) => {
-                                                                    // Ensure value is valid on blur
-                                                                    const value = e.target.value;
-                                                                    if (value === '' || value === null || value === undefined) {
-                                                                        updateSet(exerciseIndex, setIndex, 'reps', '');
-                                                                    } else {
-                                                                        const numValue = parseInt(value, 10);
-                                                                        if (isNaN(numValue) || numValue < 1) {
-                                                                            updateSet(exerciseIndex, setIndex, 'reps', '');
-                                                                        } else {
-                                                                            updateSet(exerciseIndex, setIndex, 'reps', numValue);
-                                                                        }
-                                                                    }
-                                                                }}
-                                                                className="w-full px-3 py-2 bg-white/5 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white"
+                                                                type="text"
+                                                                value={set.reps ?? ''}
+                                                                onChange={(e) => updateSet(exerciseIndex, setIndex, 'reps', e.target.value)}
+                                                                placeholder=""
+                                                                className="w-full px-3 py-2 bg-white/5 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white placeholder-gray-300"
                                                             />
                                                         </div>
                                                             <div className="col-span-4">
