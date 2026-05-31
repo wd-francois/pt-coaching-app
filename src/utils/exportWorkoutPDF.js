@@ -10,18 +10,17 @@ export function exportWorkoutToPDF({ workout, exercises, clientName, date }) {
         });
     };
 
-    // Group exercises by superset
+    // Group exercises, collapsing supersets together
     const rows = [];
     const seen = new Set();
     (workout.exercises || []).forEach((ex, i) => {
         if (seen.has(i)) return;
         if (ex.supersetGroup) {
-            const partners = workout.exercises
+            const group = workout.exercises
                 .map((e, idx) => ({ e, idx }))
-                .filter(({ e, idx }) => idx !== i && e.supersetGroup === ex.supersetGroup && !seen.has(idx));
-            const group = [{ ex, i }, ...partners];
+                .filter(({ e, idx }) => e.supersetGroup === ex.supersetGroup && !seen.has(idx));
             group.forEach(({ idx }) => seen.add(idx));
-            rows.push({ type: 'superset', items: group.map(({ ex: e }) => e) });
+            rows.push({ type: 'superset', items: group.map(({ e }) => e) });
         } else {
             seen.add(i);
             rows.push({ type: 'single', ex });
@@ -30,7 +29,9 @@ export function exportWorkoutToPDF({ workout, exercises, clientName, date }) {
 
     const exerciseHTML = rows.map((row) => {
         if (row.type === 'superset') {
-            return row.items.map((ex, idx) => buildExerciseBlock(ex, getExerciseName, idx === 0 ? 'SUPERSET' : '')).join('');
+            return row.items.map((ex, idx) =>
+                buildExerciseBlock(ex, getExerciseName, idx === 0 ? 'SUPERSET' : '')
+            ).join('');
         }
         return buildExerciseBlock(row.ex, getExerciseName, '');
     }).join('');
@@ -66,7 +67,6 @@ export function exportWorkoutToPDF({ workout, exercises, clientName, date }) {
 <p class="meta">${[clientName, formatDate(date)].filter(Boolean).join(' · ')}</p>
 ${exerciseHTML}
 <footer>PT Coach &nbsp;·&nbsp; Exported ${new Date().toLocaleDateString()}</footer>
-<script>window.onload = () => { window.print(); }<\/script>
 </body>
 </html>`;
 
@@ -77,11 +77,14 @@ ${exerciseHTML}
     }
     win.document.write(html);
     win.document.close();
+    win.focus();
+    // Trigger print from the parent after the child document has rendered
+    setTimeout(() => win.print(), 300);
 }
 
 function buildExerciseBlock(ex, getExerciseName, badge) {
     const sets = ex.sets || [];
-    const rows = sets.map((s, i) =>
+    const setRows = sets.map((s, i) =>
         `<tr><td>${i + 1}</td><td>${s.reps ?? ''}</td><td>${s.load ?? ''}</td></tr>`
     ).join('');
 
@@ -89,7 +92,7 @@ function buildExerciseBlock(ex, getExerciseName, badge) {
 
     return `${divider}<div class="exercise">
   <div class="exercise-name">${badge ? `<span class="superset-badge">${badge}</span>` : ''}${getExerciseName(ex.exerciseId)}</div>
-  ${sets.length ? `<table><thead><tr><th>#</th><th>Reps</th><th>Load</th></tr></thead><tbody>${rows}</tbody></table>` : ''}
+  ${sets.length ? `<table><thead><tr><th>#</th><th>Reps</th><th>Load</th></tr></thead><tbody>${setRows}</tbody></table>` : ''}
   ${ex.notes ? `<p class="notes">${ex.notes}</p>` : ''}
 </div>`;
 }
