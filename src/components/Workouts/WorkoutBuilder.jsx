@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { Modal } from '../UI/Modal';
 import { Button } from '../UI/Button';
 import { TimeInput24Hour } from '../UI/TimeInput24Hour';
+import { exportWorkoutToPDF } from '../../utils/exportWorkoutPDF';
 
 export const WorkoutBuilder = ({
     isOpen,
@@ -995,17 +996,56 @@ export const WorkoutBuilder = ({
                         </div>
                             )}
                     </div>
+                        <div className="flex flex-col gap-2 items-end">
                         {onBack && (
                     <Button onClick={onBack} variant="ghost" size="sm">
                         ← Back
                     </Button>
                         )}
+                        <Button
+                            onClick={() => exportWorkoutToPDF({
+                                workout: { name: existingWorkout?.name, exercises: workoutExercises },
+                                exercises,
+                                clientName: client?.name,
+                                date: selectedDate,
+                            })}
+                            variant="secondary"
+                            size="sm"
+                            icon={
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                            }
+                        >
+                            Export PDF
+                        </Button>
+                        </div>
                 </div>
                 )}
                 {isLibraryMode && existingWorkout && (
-                    <div className="glass rounded-lg p-4 border-2 border-purple-500/50 bg-purple-900/10">
-                        <p className="text-sm text-purple-400 mb-1">Editing Template</p>
-                        <p className="text-white font-semibold text-lg">{existingWorkout.name || 'Unnamed Template'}</p>
+                    <div className="flex items-center justify-between">
+                        <div className="glass rounded-lg p-4 border-2 border-purple-500/50 bg-purple-900/10 flex-1">
+                            <p className="text-sm text-purple-400 mb-1">Editing Template</p>
+                            <p className="text-white font-semibold text-lg">{existingWorkout.name || 'Unnamed Template'}</p>
+                        </div>
+                        <Button
+                            onClick={() => exportWorkoutToPDF({
+                                workout: { name: existingWorkout?.name, exercises: workoutExercises },
+                                exercises,
+                                clientName: client?.name,
+                                date: selectedDate,
+                            })}
+                            variant="secondary"
+                            size="sm"
+                            className="ml-4"
+                            icon={
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                            }
+                        >
+                            Export PDF
+                        </Button>
                     </div>
                 )}
 
