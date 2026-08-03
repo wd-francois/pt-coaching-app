@@ -21,6 +21,7 @@ export const ClientSelectModal = ({
     onDeleteWorkoutTemplate = null,
     onCreatePersonalBest = null,
     onDeletePersonalBest = null,
+    onViewClient = null,
 }) => {
     const [selectedClient, setSelectedClient] = useState(null);
     const [selectedClients, setSelectedClients] = useState([]);
@@ -255,9 +256,9 @@ export const ClientSelectModal = ({
                     groupSessionId: currentClient.groupSessionId
                 });
             } else {
-                // All clients done, close the modal
-                console.log('All clients completed, closing modal');
-                handleClose();
+                // All clients done, return to the date's client/workout list
+                console.log('All clients completed, returning to client list');
+                handleBack();
             }
         } catch (error) {
             console.error('Error saving group workout:', error);
@@ -612,6 +613,10 @@ export const ClientSelectModal = ({
                     onUpdateWorkout={isGroupSession ? handleGroupWorkoutSave : onUpdateWorkout}
                     onDeleteWorkout={onDeleteWorkout}
                     onNavigateToClient={isGroupSession ? navigateToClientIndex : null}
+                    onGoToClientProfile={onViewClient ? (clientId) => {
+                        handleClose();
+                        onViewClient(clientId);
+                    } : null}
                     onCreateWorkoutTemplate={onCreateWorkoutTemplate}
                     workoutTemplates={workoutTemplates}
                     initialExercises={selectedTemplate && selectedTemplate.exercises ? selectedTemplate.exercises : null}
@@ -934,7 +939,24 @@ export const ClientSelectModal = ({
                                                     : 'bg-purple-600/30 hover:bg-purple-600/50'
                                             }`}
                                         >
-                                            <p className="font-semibold text-white">{clientName}</p>
+                                            <div className="flex items-center justify-between">
+                                                <p className="font-semibold text-white">{clientName}</p>
+                                                {!isGroup && onViewClient && workout.clientId && (
+                                                    <span
+                                                        title="View client profile"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            handleClose();
+                                                            onViewClient(workout.clientId);
+                                                        }}
+                                                        className="text-blue-400 hover:text-blue-300 p-1 flex-shrink-0"
+                                                    >
+                                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                        </svg>
+                                                    </span>
+                                                )}
+                                            </div>
                                             <div className="flex items-center gap-2 text-sm text-gray-100">
                                                 <span>{totalExercises} exercise{totalExercises !== 1 ? 's' : ''}</span>
                                                 {workout.time && (
@@ -1007,9 +1029,9 @@ export const ClientSelectModal = ({
                                                 handleClientSelect(client);
                                             }}
                                             className={`w-full text-left px-4 py-3 glass glass-hover rounded-lg transition-all ${
-                                                isSelected 
-                                                    ? isGroupMode 
-                                                        ? 'ring-2 ring-teal-500 bg-teal-600/20' 
+                                                isSelected
+                                                    ? isGroupMode
+                                                        ? 'ring-2 ring-teal-500 bg-teal-600/20'
                                                         : 'ring-2 ring-purple-500 bg-purple-600/20'
                                                     : ''
                                             }`}
@@ -1017,8 +1039,8 @@ export const ClientSelectModal = ({
                                             <div className="flex items-center gap-3">
                                                 {isGroupMode && (
                                                     <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                                                        isSelected 
-                                                            ? 'bg-teal-600 border-teal-600' 
+                                                        isSelected
+                                                            ? 'bg-teal-600 border-teal-600'
                                                             : 'border-gray-500'
                                                     }`}>
                                                         {isSelected && (
@@ -1034,6 +1056,21 @@ export const ClientSelectModal = ({
                                                         <p className="text-sm text-gray-200">{client.email}</p>
                                                     )}
                                                 </div>
+                                                {onViewClient && (
+                                                    <span
+                                                        title={`View ${client.name}'s profile`}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            handleClose();
+                                                            onViewClient(client.id);
+                                                        }}
+                                                        className="text-blue-400 hover:text-blue-300 p-1 rounded flex-shrink-0"
+                                                    >
+                                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                        </svg>
+                                                    </span>
+                                                )}
                                             </div>
                                         </button>
                                     );

@@ -15,6 +15,7 @@ export const Calendar = ({
     onDeleteWorkoutTemplate = null,
     onCreatePersonalBest = null,
     onDeletePersonalBest = null,
+    onViewClient = null,
 }) => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(null);
@@ -173,18 +174,23 @@ export const Calendar = ({
                                         titleText = displayText;
                                     }
                                     
+                                    const isClickable = !workout.isGroup && onViewClient && workout.clientId;
                                     return (
-                                        <div
+                                        <span
                                             key={idx}
-                                            className={`text-xs px-1 py-0.5 rounded truncate ${
-                                                workout.isGroup 
-                                                    ? 'bg-teal-600/50 border border-teal-400/50' 
-                                                    : 'bg-purple-600/50'
+                                            className={`text-xs px-1 py-0.5 rounded truncate block ${
+                                                workout.isGroup
+                                                    ? 'bg-teal-600/50 border border-teal-400/50'
+                                                    : `bg-purple-600/50${isClickable ? ' hover:bg-purple-400/70 cursor-pointer' : ''}`
                                             }`}
-                                            title={titleText}
+                                            title={isClickable ? `${titleText} — tap to view profile` : titleText}
+                                            onClick={isClickable ? (e) => {
+                                                e.stopPropagation();
+                                                onViewClient(workout.clientId);
+                                            } : undefined}
                                         >
                                             {displayText}
-                                        </div>
+                                        </span>
                                     );
                                 })}
                                 {dayWorkouts.length > 2 && (
@@ -270,6 +276,7 @@ export const Calendar = ({
                 onDeleteWorkoutTemplate={onDeleteWorkoutTemplate}
                 onCreatePersonalBest={onCreatePersonalBest}
                 onDeletePersonalBest={onDeletePersonalBest}
+                onViewClient={onViewClient}
             />
         </div>
     );

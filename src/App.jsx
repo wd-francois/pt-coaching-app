@@ -323,6 +323,10 @@ function App() {
             onCreateWorkoutTemplate={createWorkoutTemplate}
             onUpdateWorkoutTemplate={modifyWorkoutTemplate}
             onDeleteWorkoutTemplate={removeWorkoutTemplate}
+            onViewClient={(clientId) => {
+              setSelectedClientId(clientId);
+              setActiveView('clientDetail');
+            }}
             onCreatePersonalBest={async (personalBestData) => {
               // Store Personal Best in client's data
               if (!personalBestData.clientId) {

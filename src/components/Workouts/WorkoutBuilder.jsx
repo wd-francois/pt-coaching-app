@@ -22,6 +22,7 @@ export const WorkoutBuilder = ({
     onUpdateWorkout,
     onDeleteWorkout,
     onNavigateToClient = null,
+    onGoToClientProfile = null,
     onCreateWorkoutTemplate = null,
     workoutTemplates = [],
     initialExercises = null,
@@ -731,7 +732,7 @@ export const WorkoutBuilder = ({
                 await onUpdateWorkoutTemplate(existingWorkout.id, {
                     exercises: exercisesCopy
                 });
-                onClose();
+                (onBack || onClose)();
                 return;
             }
 
@@ -782,7 +783,9 @@ export const WorkoutBuilder = ({
             
             // Don't close for group sessions - let the parent handle navigation
             if (!isGroupSession) {
-                onClose();
+                // Prefer going back to the previous screen (e.g. the date's client/workout
+                // list) over fully closing, so the user stays inside the flow after saving
+                (onBack || onClose)();
             }
             // For group sessions, the parent (handleGroupWorkoutSave) will handle navigation
             // The form will reset when the new client loads via useEffect
@@ -967,7 +970,16 @@ export const WorkoutBuilder = ({
                             {client && (
                         <div className={`glass rounded-lg p-3 ${isGroupSession ? 'border border-teal-500/30 bg-teal-900/5' : ''}`}>
                             <p className="text-sm text-gray-200">Client</p>
-                            <p className="text-white font-semibold text-lg">{client.name}</p>
+                            {onGoToClientProfile ? (
+                                <button
+                                    onClick={() => onGoToClientProfile(client.id)}
+                                    className="text-white font-semibold text-lg hover:text-blue-300 hover:underline transition-colors text-left"
+                                >
+                                    {client.name}
+                                </button>
+                            ) : (
+                                <p className="text-white font-semibold text-lg">{client.name}</p>
+                            )}
                             {isGroupSession && groupClientIndex >= 0 && (
                                 <p className="text-xs text-teal-400 mt-1">
                                     Part of group session ({groupClientIndex + 1}/{totalGroupClients})
