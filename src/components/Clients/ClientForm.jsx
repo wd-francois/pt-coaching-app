@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '../UI/Button';
 import { Modal } from '../UI/Modal';
 
@@ -11,6 +11,16 @@ export const ClientForm = ({ isOpen, onClose, onSubmit, initialData = null }) =>
     });
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
+
+    // The Modal keeps this component mounted between opens, so re-sync the
+    // form fields with the client being edited (or blank for a new client)
+    // each time the modal opens instead of only on first mount.
+    useEffect(() => {
+        if (isOpen) {
+            setFormData(initialData || { name: '', email: '', phone: '', notes: '' });
+            setErrors({});
+        }
+    }, [isOpen, initialData]);
 
     const validateField = (name, value) => {
         const newErrors = { ...errors };
