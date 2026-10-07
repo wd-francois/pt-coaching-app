@@ -61,6 +61,11 @@ export const QuestionnaireList = () => {
             timeframe: questionnaire.timeframe || '',
             importance: questionnaire.importance?.toString() || '',
             agreement: questionnaire.agreement_accepted || false,
+            guardianName: questionnaire.guardian_name || '',
+            guardianRelationship: questionnaire.guardian_relationship || '',
+            guardianEmail: questionnaire.guardian_email || '',
+            guardianPhone: questionnaire.guardian_phone || '',
+            guardianConsent: questionnaire.guardian_consent_accepted || false,
         };
         setSelectedQuestionnaire({ ...questionnaire, formData });
         setIsEditModalOpen(true);
@@ -387,6 +392,11 @@ export const QuestionnaireList = () => {
                     timeframe: q.timeframe || '',
                     importance: q.importance || '',
                     agreement: q.agreement_accepted || q.agreement || false,
+                    guardianName: q.guardian_name || q.guardianName || '',
+                    guardianRelationship: q.guardian_relationship || q.guardianRelationship || '',
+                    guardianEmail: q.guardian_email || q.guardianEmail || '',
+                    guardianPhone: q.guardian_phone || q.guardianPhone || '',
+                    guardianConsent: q.guardian_consent_accepted || q.guardianConsent || false,
                 }));
             } else if (fileName.endsWith('.ods') || fileName.endsWith('.xlsx') || fileName.endsWith('.xls')) {
                 // Excel/ODS import
@@ -465,6 +475,19 @@ export const QuestionnaireList = () => {
             }
             return newSet;
         });
+    };
+
+    const calculateAge = (dob) => {
+        if (!dob) return null;
+        const birthDate = new Date(dob);
+        if (isNaN(birthDate.getTime())) return null;
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
     };
 
     const getMedicalConditionsList = (conditions) => {
@@ -567,7 +590,10 @@ export const QuestionnaireList = () => {
                     {filteredQuestionnaires.map((q) => {
                         const isExpanded = expandedIds.has(q.id);
                         const medicalConditions = getMedicalConditionsList(q.medical_conditions);
-                        
+                        const age = calculateAge(q.date_of_birth);
+                        const isMinor = age !== null && age < 18;
+                        const hasGuardianConsent = Boolean(q.guardian_consent_accepted);
+
                         return (
                             <div key={q.id} className="glass rounded-2xl border border-white/10 overflow-hidden">
                                 <div className="p-6">
@@ -577,6 +603,18 @@ export const QuestionnaireList = () => {
                                                 <h3 className="text-xl font-bold text-white">
                                                     {q.first_name} {q.last_name}
                                                 </h3>
+                                                {isMinor && (
+                                                    <span
+                                                        className={`px-2 py-0.5 rounded text-xs font-semibold border ${
+                                                            hasGuardianConsent
+                                                                ? 'bg-blue-500/20 border-blue-500/50 text-blue-200'
+                                                                : 'bg-red-500/20 border-red-500/50 text-red-200'
+                                                        }`}
+                                                        title={hasGuardianConsent ? 'Guardian consent on file' : 'Minor applicant — guardian consent missing'}
+                                                    >
+                                                        Minor{hasGuardianConsent ? '' : ' — consent missing'}
+                                                    </span>
+                                                )}
                                                 <button
                                                     onClick={() => toggleExpand(q.id)}
                                                     className="p-1 hover:bg-white/10 rounded transition-colors"
@@ -627,6 +665,33 @@ export const QuestionnaireList = () => {
                                     {/* Expanded Details */}
                                     {isExpanded && (
                                         <div className="mt-6 pt-6 border-t border-white/10 space-y-4">
+                                            {/* Parent / Legal Guardian Consent */}
+                                            {(isMinor || q.guardian_name || q.guardian_email) && (
+                                                <div>
+                                                    <h4 className="text-sm font-semibold text-white mb-2">Parent / Legal Guardian Consent:</h4>
+                                                    {q.guardian_name || q.guardian_email ? (
+                                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-100 bg-white/5 p-3 rounded-lg">
+                                                            <p><span className="font-medium">Name:</span> {q.guardian_name || 'N/A'}</p>
+                                                            <p><span className="font-medium">Relationship:</span> {q.guardian_relationship || 'N/A'}</p>
+                                                            <p><span className="font-medium">Email:</span> {q.guardian_email || 'N/A'}</p>
+                                                            <p><span className="font-medium">Phone:</span> {q.guardian_phone || 'N/A'}</p>
+                                                            <p className="sm:col-span-2">
+                                                                <span className="font-medium">Consent:</span>{' '}
+                                                                {hasGuardianConsent ? (
+                                                                    <span className="text-green-300">Accepted</span>
+                                                                ) : (
+                                                                    <span className="text-red-300">Not accepted</span>
+                                                                )}
+                                                            </p>
+                                                        </div>
+                                                    ) : (
+                                                        <p className="text-sm text-red-200 bg-red-500/10 border border-red-500/30 p-3 rounded-lg">
+                                                            No parent/guardian details on file for this minor applicant.
+                                                        </p>
+                                                    )}
+                                                </div>
+                                            )}
+
                                             {/* Medical Conditions */}
                                             {medicalConditions.length > 0 && (
                                                 <div>
@@ -784,6 +849,11 @@ const QuestionnaireEditForm = ({ questionnaire, onSave, onCancel }) => {
         timeframe: '',
         importance: '',
         agreement: false,
+        guardianName: '',
+        guardianRelationship: '',
+        guardianEmail: '',
+        guardianPhone: '',
+        guardianConsent: false,
     });
     const [saving, setSaving] = useState(false);
 
@@ -876,6 +946,60 @@ const QuestionnaireEditForm = ({ questionnaire, onSave, onCancel }) => {
                             className="w-full px-4 py-2 glass rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500 text-white"
                         />
                     </div>
+                </div>
+            </div>
+
+            {/* Parent / Legal Guardian Consent */}
+            <div className="space-y-4">
+                <h3 className="text-lg font-bold text-white border-b border-white/10 pb-2">Parent / Legal Guardian Consent</h3>
+                <p className="text-xs text-gray-300">Fill in if the applicant is a minor.</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-100 mb-1">Guardian full name</label>
+                        <input
+                            type="text"
+                            value={formData.guardianName}
+                            onChange={(e) => handleInputChange('guardianName', e.target.value)}
+                            className="w-full px-4 py-2 glass rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500 text-white"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-100 mb-1">Relationship to applicant</label>
+                        <input
+                            type="text"
+                            value={formData.guardianRelationship}
+                            onChange={(e) => handleInputChange('guardianRelationship', e.target.value)}
+                            className="w-full px-4 py-2 glass rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500 text-white"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-100 mb-1">Guardian email</label>
+                        <input
+                            type="email"
+                            value={formData.guardianEmail}
+                            onChange={(e) => handleInputChange('guardianEmail', e.target.value)}
+                            className="w-full px-4 py-2 glass rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500 text-white"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-100 mb-1">Guardian phone</label>
+                        <input
+                            type="tel"
+                            value={formData.guardianPhone}
+                            onChange={(e) => handleInputChange('guardianPhone', e.target.value)}
+                            className="w-full px-4 py-2 glass rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500 text-white"
+                        />
+                    </div>
+                </div>
+                <div className="flex items-center">
+                    <input
+                        type="checkbox"
+                        id="edit-guardianConsent"
+                        checked={formData.guardianConsent}
+                        onChange={(e) => handleInputChange('guardianConsent', e.target.checked)}
+                        className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                    />
+                    <label htmlFor="edit-guardianConsent" className="ml-2 text-sm text-gray-100">Guardian consent accepted</label>
                 </div>
             </div>
 

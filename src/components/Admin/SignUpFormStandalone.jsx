@@ -30,6 +30,11 @@ export const SignUpFormStandalone = () => {
         timeframe: '',
         importance: '',
         agreement: false,
+        guardianName: '',
+        guardianRelationship: '',
+        guardianEmail: '',
+        guardianPhone: '',
+        guardianConsent: false,
     });
 
     const [submitting, setSubmitting] = useState(false);
@@ -98,6 +103,11 @@ export const SignUpFormStandalone = () => {
                 timeframe: '',
                 importance: '',
                 agreement: false,
+                guardianName: '',
+                guardianRelationship: '',
+                guardianEmail: '',
+                guardianPhone: '',
+                guardianConsent: false,
             });
         } catch (error) {
             console.error('Error submitting form:', error);
@@ -107,6 +117,23 @@ export const SignUpFormStandalone = () => {
             setSubmitting(false);
         }
     };
+
+    // Determine if a parent/legal guardian consent section is required
+    const calculateAge = (dob) => {
+        if (!dob) return null;
+        const birthDate = new Date(dob);
+        if (isNaN(birthDate.getTime())) return null;
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    };
+
+    const applicantAge = calculateAge(formData.dateOfBirth);
+    const isMinor = applicantAge !== null && applicantAge < 18;
 
     const handleBack = () => {
         // If opened in a new window, close it
@@ -252,6 +279,83 @@ export const SignUpFormStandalone = () => {
                                 </div>
                             </div>
                         </div>
+
+                        {/* Parent / Legal Guardian Consent (required for applicants under 18) */}
+                        {isMinor && (
+                            <div className="space-y-5">
+                                <h2 className="text-2xl font-bold text-white border-b-2 border-purple-500 pb-3">Parent / Legal Guardian Consent</h2>
+                                <div className="bg-yellow-500/10 border-l-4 border-yellow-500 p-5 rounded-xl">
+                                    <p className="text-sm text-yellow-200">
+                                        Because the applicant is under 18, a parent or legal guardian must provide their details and consent below before this form can be submitted.
+                                    </p>
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                    <div>
+                                        <label htmlFor="guardianName" className="block text-sm font-semibold text-gray-200 mb-2">Parent/Guardian full name *</label>
+                                        <input
+                                            type="text"
+                                            id="guardianName"
+                                            required={isMinor}
+                                            value={formData.guardianName}
+                                            onChange={(e) => handleInputChange('guardianName', e.target.value)}
+                                            className="w-full px-5 py-3 bg-white/5 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-gray-400 transition-all"
+                                            placeholder="Enter parent/guardian's full name"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="guardianRelationship" className="block text-sm font-semibold text-gray-200 mb-2">Relationship to applicant *</label>
+                                        <input
+                                            type="text"
+                                            id="guardianRelationship"
+                                            required={isMinor}
+                                            value={formData.guardianRelationship}
+                                            onChange={(e) => handleInputChange('guardianRelationship', e.target.value)}
+                                            className="w-full px-5 py-3 bg-white/5 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-gray-400 transition-all"
+                                            placeholder="e.g. Mother, Father, Legal Guardian"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="guardianEmail" className="block text-sm font-semibold text-gray-200 mb-2">Parent/Guardian email *</label>
+                                        <input
+                                            type="email"
+                                            id="guardianEmail"
+                                            required={isMinor}
+                                            value={formData.guardianEmail}
+                                            onChange={(e) => handleInputChange('guardianEmail', e.target.value)}
+                                            className="w-full px-5 py-3 bg-white/5 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-gray-400 transition-all"
+                                            placeholder="Enter parent/guardian's email address"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="guardianPhone" className="block text-sm font-semibold text-gray-200 mb-2">Parent/Guardian phone</label>
+                                        <input
+                                            type="tel"
+                                            id="guardianPhone"
+                                            value={formData.guardianPhone}
+                                            onChange={(e) => handleInputChange('guardianPhone', e.target.value)}
+                                            className="w-full px-5 py-3 bg-white/5 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-gray-400 transition-all"
+                                            placeholder="Enter parent/guardian's phone number"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="bg-white/5 rounded-xl p-5 border border-white/10">
+                                    <p className="text-sm text-gray-100 leading-relaxed">
+                                        I confirm that I am the parent or legal guardian of the applicant named above. I consent to their participation in physical activity and training sessions, confirm that the medical and personal information provided is accurate to the best of my knowledge, and accept responsibility for informing the trainer of any changes to their medical condition.
+                                    </p>
+                                </div>
+                                <div className="flex items-start gap-3 p-4 bg-white/5 rounded-xl">
+                                    <input
+                                        type="checkbox"
+                                        id="guardianConsent"
+                                        required={isMinor}
+                                        checked={formData.guardianConsent}
+                                        onChange={(e) => handleInputChange('guardianConsent', e.target.checked)}
+                                        className="h-5 w-5 rounded border-gray-400 text-purple-600 focus:ring-purple-500 focus:ring-2 mt-0.5 cursor-pointer"
+                                    />
+                                    <label htmlFor="guardianConsent" className="text-sm font-medium text-gray-200 cursor-pointer">I am the parent/legal guardian and I consent to the above *</label>
+                                </div>
+                            </div>
+                        )}
 
                         {/* Medical Conditions */}
                         <div className="space-y-5">

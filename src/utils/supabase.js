@@ -88,16 +88,41 @@ export const addClientQuestionnaire = async (questionnaireData) => {
     // Validate required fields
     const firstName = (questionnaireData.firstName || '').trim();
     const lastName = (questionnaireData.lastName || '').trim();
-    
+
     if (!firstName || !lastName) {
       throw new Error('First name and last name are required');
     }
-    
+
+    const dateOfBirth = formatDateForDB(questionnaireData.dateOfBirth);
+
+    // Determine if the applicant is a minor, requiring parent/legal guardian consent
+    const calculateAge = (dob) => {
+      if (!dob) return null;
+      const birthDate = new Date(dob);
+      if (isNaN(birthDate.getTime())) return null;
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      return age;
+    };
+    const isMinor = calculateAge(dateOfBirth) !== null && calculateAge(dateOfBirth) < 18;
+
+    const guardianName = (questionnaireData.guardianName || '').trim();
+    const guardianRelationship = (questionnaireData.guardianRelationship || '').trim();
+    const guardianEmail = (questionnaireData.guardianEmail || '').trim();
+
+    if (isMinor && (!guardianName || !guardianRelationship || !guardianEmail || !questionnaireData.guardianConsent)) {
+      throw new Error('Parent/legal guardian details and consent are required for applicants under 18');
+    }
+
     // Map camelCase to snake_case for database
     const dbData = {
       first_name: firstName,
       last_name: lastName,
-      date_of_birth: formatDateForDB(questionnaireData.dateOfBirth),
+      date_of_birth: dateOfBirth,
       gender: questionnaireData.gender ? String(questionnaireData.gender).trim() : null,
       email: String(questionnaireData.email).trim(),
       medical_conditions: questionnaireData.medicalConditions || {},
@@ -110,6 +135,11 @@ export const addClientQuestionnaire = async (questionnaireData) => {
       timeframe: questionnaireData.timeframe ? String(questionnaireData.timeframe).trim() : null,
       importance: questionnaireData.importance ? (parseInt(String(questionnaireData.importance)) || null) : null,
       agreement_accepted: questionnaireData.agreement !== undefined ? Boolean(questionnaireData.agreement) : false,
+      guardian_name: guardianName || null,
+      guardian_relationship: guardianRelationship || null,
+      guardian_email: guardianEmail || null,
+      guardian_phone: questionnaireData.guardianPhone ? String(questionnaireData.guardianPhone).trim() : null,
+      guardian_consent_accepted: Boolean(questionnaireData.guardianConsent),
       submitted_at: new Date().toISOString(),
     };
 
@@ -187,6 +217,11 @@ export const updateClientQuestionnaire = async (id, questionnaireData) => {
       timeframe: questionnaireData.timeframe || null,
       importance: questionnaireData.importance ? parseInt(questionnaireData.importance) : null,
       agreement_accepted: questionnaireData.agreement || false,
+      guardian_name: questionnaireData.guardianName || null,
+      guardian_relationship: questionnaireData.guardianRelationship || null,
+      guardian_email: questionnaireData.guardianEmail || null,
+      guardian_phone: questionnaireData.guardianPhone || null,
+      guardian_consent_accepted: questionnaireData.guardianConsent || false,
       updated_at: new Date().toISOString(),
     };
 
