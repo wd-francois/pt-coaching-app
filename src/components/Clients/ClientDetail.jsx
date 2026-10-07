@@ -41,6 +41,7 @@ export const ClientDetail = ({
     const [editWorkoutName, setEditWorkoutName] = useState('');
     const [showWorkoutBuilder, setShowWorkoutBuilder] = useState(false);
     const [selectedWorkoutForUse, setSelectedWorkoutForUse] = useState(null);
+    const [expandedExerciseIds, setExpandedExerciseIds] = useState(new Set());
 
     // Filter workouts for this client
     const clientWorkouts = useMemo(() => {
@@ -102,6 +103,42 @@ export const ClientDetail = ({
     const getExerciseName = (exerciseId) => {
         const exercise = exercises.find(e => e.id === exerciseId);
         return exercise?.name || 'Unknown Exercise';
+    };
+
+    // Group every exercise this client has done across all workouts, most recently performed first
+    const exerciseHistory = useMemo(() => {
+        const map = new Map();
+        clientWorkouts.forEach(workout => {
+            (workout.exercises || []).forEach(ex => {
+                if (!map.has(ex.exerciseId)) {
+                    map.set(ex.exerciseId, {
+                        exerciseId: ex.exerciseId,
+                        name: getExerciseName(ex.exerciseId),
+                        entries: [],
+                    });
+                }
+                map.get(ex.exerciseId).entries.push({
+                    date: workout.date,
+                    workoutName: workout.name,
+                    sets: ex.sets || [],
+                });
+            });
+        });
+        return Array.from(map.values()).sort((a, b) => {
+            return new Date(b.entries[0]?.date || 0) - new Date(a.entries[0]?.date || 0);
+        });
+    }, [clientWorkouts, exercises]);
+
+    const toggleExerciseExpand = (exerciseId) => {
+        setExpandedExerciseIds(prev => {
+            const next = new Set(prev);
+            if (next.has(exerciseId)) {
+                next.delete(exerciseId);
+            } else {
+                next.add(exerciseId);
+            }
+            return next;
+        });
     };
 
     const formatDate = (dateStr) => {
@@ -289,6 +326,16 @@ export const ClientDetail = ({
                     }`}
                 >
                     Personal Bests ({clientPersonalBests.length})
+                </button>
+                <button
+                    onClick={() => setActiveTab('exercises')}
+                    className={`px-4 py-2 font-medium transition-colors ${
+                        activeTab === 'exercises'
+                            ? 'text-purple-400 border-b-2 border-purple-400'
+                            : 'text-gray-200 hover:text-white'
+                    }`}
+                >
+                    Exercises ({exerciseHistory.length})
                 </button>
             </div>
 
@@ -530,6 +577,80 @@ export const ClientDetail = ({
                                     </div>
                                 </div>
                             ))}
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {/* Exercises Tab */}
+            {activeTab === 'exercises' && (
+                <div className="space-y-4">
+                    {exerciseHistory.length === 0 ? (
+                        <div className="glass rounded-lg p-8 text-center">
+                            <p className="text-gray-200">No exercises recorded yet</p>
+                        </div>
+                    ) : (
+                        <div className="space-y-3">
+                            {exerciseHistory.map(ex => {
+                                const isExpanded = expandedExerciseIds.has(ex.exerciseId);
+                                return (
+                                    <div key={ex.exerciseId} className="glass rounded-lg p-4">
+                                        <button
+                                            onClick={() => toggleExerciseExpand(ex.exerciseId)}
+                                            className="w-full flex items-center justify-between text-left"
+                                        >
+                                            <div className="flex items-center gap-3">
+                                                <h4 className="font-semibold text-white text-lg">{ex.name}</h4>
+                                                <span className="text-xs text-gray-200 bg-white/10 px-2 py-1 rounded-full">
+                                                    {ex.entries.length} session{ex.entries.length === 1 ? '' : 's'}
+                                                </span>
+                                            </div>
+                                            <svg
+                                                className={`w-5 h-5 text-gray-200 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                            </svg>
+                                        </button>
+                                        {isExpanded && (
+                                            <div className="mt-4 pt-4 border-t border-white/10 space-y-3">
+                                                {ex.entries.map((entry, idx) => (
+                                                    <div key={idx} className="bg-white/5 rounded-lg p-3">
+                                                        <p className="text-sm text-gray-200 mb-2">
+                                                            {formatDateShort(entry.date)}
+                                                            {entry.workoutName && ` • ${entry.workoutName}`}
+                                                        </p>
+                                                        {entry.sets.length === 0 ? (
+                                                            <p className="text-sm text-gray-400">No sets recorded</p>
+                                                        ) : (
+                                                            <table className="w-full text-sm">
+                                                                <thead>
+                                                                    <tr className="text-gray-400">
+                                                                        <th className="text-left font-medium pb-1 pr-4">Set</th>
+                                                                        <th className="text-left font-medium pb-1 pr-4">Reps</th>
+                                                                        <th className="text-left font-medium pb-1">Weight</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {entry.sets.map((set, setIdx) => (
+                                                                        <tr key={setIdx}>
+                                                                            <td className="text-gray-100 py-0.5 pr-4">{setIdx + 1}</td>
+                                                                            <td className="text-gray-100 py-0.5 pr-4">{set.reps || '-'}</td>
+                                                                            <td className="text-gray-100 py-0.5">{set.load || '-'}</td>
+                                                                        </tr>
+                                                                    ))}
+                                                                </tbody>
+                                                            </table>
+                                                        )}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                );
+                            })}
                         </div>
                     )}
                 </div>
