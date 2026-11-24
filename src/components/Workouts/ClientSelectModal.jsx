@@ -39,7 +39,11 @@ export const ClientSelectModal = ({
 
     const existingWorkouts = workouts.filter(w => w.date === selectedDate);
 
-    const filteredClients = clients.filter(client =>
+    // Only active clients can be picked for new workouts; the full list is still
+    // used below to look up clients on existing workouts.
+    const activeClients = clients.filter(client => client.is_active !== false);
+
+    const filteredClients = activeClients.filter(client =>
         client.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
@@ -669,7 +673,7 @@ export const ClientSelectModal = ({
                         {(() => {
                             // Filter out clients already in the group
                             const existingClientIds = selectedClient?.groupClients?.map(c => c.id) || [];
-                            const availableClients = clients.filter(c => !existingClientIds.includes(c.id));
+                            const availableClients = activeClients.filter(c => !existingClientIds.includes(c.id));
                             const filteredAvailableClients = availableClients.filter(client =>
                                 client.name.toLowerCase().includes(addClientsSearchTerm.toLowerCase())
                             );
@@ -1000,9 +1004,9 @@ export const ClientSelectModal = ({
                         }`}
                     />
 
-                    {clients.length === 0 ? (
+                    {activeClients.length === 0 ? (
                         <div className="text-center py-8">
-                            <p className="text-gray-200 mb-4">No clients found. Add clients first to schedule workouts.</p>
+                            <p className="text-gray-200 mb-4">No active clients found. Add or reactivate clients to schedule workouts.</p>
                             <Button onClick={handleClose} variant="secondary">
                                 Close
                             </Button>

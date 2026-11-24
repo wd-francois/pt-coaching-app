@@ -21,10 +21,22 @@ export const ClientList = ({ clients, onAdd, onUpdate, onDelete, onImportBatch, 
     const fileInputRef = useRef(null);
     const exportMenuRef = useRef(null);
 
+    const [statusFilter, setStatusFilter] = useState('active');
+
+    // Clients created before the is_active column existed have no value; treat them as active.
+    const isActive = (client) => client.is_active !== false;
+    const activeCount = clients.filter(isActive).length;
+    const inactiveCount = clients.length - activeCount;
+
     const filteredClients = clients.filter(client =>
-        client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        client.email?.toLowerCase().includes(searchTerm.toLowerCase())
+        (statusFilter === 'all' || (statusFilter === 'active') === isActive(client)) &&
+        (client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        client.email?.toLowerCase().includes(searchTerm.toLowerCase()))
     );
+
+    const handleToggleActive = async (client) => {
+        await onUpdate(client.id, { is_active: !isActive(client) });
+    };
 
     const handleAdd = async (clientData) => {
         await onAdd(clientData);
@@ -339,7 +351,9 @@ export const ClientList = ({ clients, onAdd, onUpdate, onDelete, onImportBatch, 
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-bold gradient-text">Clients</h1>
-                    <p className="text-gray-200 mt-1">{clients.length} total clients</p>
+                    <p className="text-gray-200 mt-1">
+                        {clients.length} total clients · {activeCount} active · {inactiveCount} inactive
+                    </p>
                 </div>
                 <div className="flex gap-3 flex-wrap">
                     <Button
@@ -456,15 +470,35 @@ export const ClientList = ({ clients, onAdd, onUpdate, onDelete, onImportBatch, 
                 </div>
             )}
 
-            {/* Search */}
-            <div className="glass rounded-lg p-4">
+            {/* Search and Status Filter */}
+            <div className="glass rounded-lg p-4 flex flex-col sm:flex-row gap-3 sm:items-center">
                 <input
                     type="text"
                     placeholder="Search clients by name or email..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full bg-transparent border-none focus:outline-none text-white placeholder-gray-400"
+                    className="flex-1 bg-transparent border-none focus:outline-none text-white placeholder-gray-400"
                 />
+                <div className="flex gap-1 bg-black/20 rounded-lg p-1" role="group" aria-label="Filter clients by status">
+                    {[
+                        { key: 'active', label: `Active (${activeCount})` },
+                        { key: 'inactive', label: `Inactive (${inactiveCount})` },
+                        { key: 'all', label: `All (${clients.length})` },
+                    ].map(option => (
+                        <button
+                            key={option.key}
+                            onClick={() => setStatusFilter(option.key)}
+                            aria-pressed={statusFilter === option.key}
+                            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                                statusFilter === option.key
+                                    ? 'bg-purple-600 text-white'
+                                    : 'text-gray-200 hover:bg-white/10'
+                            }`}
+                        >
+                            {option.label}
+                        </button>
+                    ))}
+                </div>
             </div>
 
             {/* Client Grid */}
@@ -476,12 +510,16 @@ export const ClientList = ({ clients, onAdd, onUpdate, onDelete, onImportBatch, 
                         </svg>
                     </div>
                     <h3 className="text-xl font-semibold mb-2">
-                        {searchTerm ? 'No clients found' : 'No clients yet'}
+                        {searchTerm || clients.length > 0 ? 'No clients found' : 'No clients yet'}
                     </h3>
                     <p className="text-gray-200 mb-6">
-                        {searchTerm ? 'Try a different search term' : 'Get started by adding your first client'}
+                        {searchTerm
+                            ? 'Try a different search term'
+                            : clients.length > 0
+                                ? `No ${statusFilter} clients`
+                                : 'Get started by adding your first client'}
                     </p>
-                    {!searchTerm && (
+                    {!searchTerm && clients.length === 0 && (
                         <Button onClick={() => setIsFormOpen(true)}>Add Your First Client</Button>
                     )}
                 </div>
@@ -496,8 +534,8 @@ export const ClientList = ({ clients, onAdd, onUpdate, onDelete, onImportBatch, 
                                 {/* Client Card - Clickable */}
                                 <button
                                     onClick={() => onViewClient ? onViewClient(client.id) : null}
-                                    className="w-full p-4 flex items-center justify-between hover:bg-white/5 transition-colors"
-                                    aria-label={`${client.name}. Click to view profile`}
+                                    className={`w-full p-4 flex items-center justify-between hover:bg-white/5 transition-colors ${isActive(client) ? '' : 'opacity-60'}`}
+                                    aria-label={`${client.name}${isActive(client) ? '' : ' (inactive)'}. Click to view profile`}
                                 >
                                     <div className="flex items-center gap-3 flex-1">
                                         <div className="w-12 h-12 rounded-full bg-purple-600/30 flex items-center justify-center">
@@ -506,7 +544,14 @@ export const ClientList = ({ clients, onAdd, onUpdate, onDelete, onImportBatch, 
                                             </span>
                                         </div>
                                         <div className="text-left flex-1">
-                                            <div className="font-semibold text-white">{client.name}</div>
+                                            <div className="font-semibold text-white flex items-center gap-2">
+                                                {client.name}
+                                                {!isActive(client) && (
+                                                    <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-gray-500/30 text-gray-200">
+                                                        Inactive
+                                                    </span>
+                                                )}
+                                            </div>
                                             {(client.email || client.phone) && (
                                                 <div className="text-sm text-hc-textSecondary">
                                                     {client.email || client.phone}
@@ -515,6 +560,30 @@ export const ClientList = ({ clients, onAdd, onUpdate, onDelete, onImportBatch, 
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
+                                        <span
+                                            role="button"
+                                            tabIndex={0}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleToggleActive(client);
+                                            }}
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Enter' || e.key === ' ') {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    handleToggleActive(client);
+                                                }
+                                            }}
+                                            className={`px-3 py-1 rounded-lg text-xs font-medium transition-colors ${
+                                                isActive(client)
+                                                    ? 'bg-green-500/20 text-green-300 hover:bg-green-500/30'
+                                                    : 'bg-gray-500/20 text-gray-200 hover:bg-gray-500/30'
+                                            }`}
+                                            aria-label={isActive(client) ? `Mark ${client.name} as inactive` : `Mark ${client.name} as active`}
+                                            title={isActive(client) ? 'Click to mark inactive' : 'Click to mark active'}
+                                        >
+                                            {isActive(client) ? 'Active' : 'Inactive'}
+                                        </span>
                                         <button
                                             onClick={(e) => {
                                                 e.stopPropagation();
